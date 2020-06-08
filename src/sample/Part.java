@@ -2,7 +2,7 @@ package sample;
 
 import javafx.collections.ObservableList;
 
-public class Part {
+abstract public class Part {
 
     private int id;
     private String name;

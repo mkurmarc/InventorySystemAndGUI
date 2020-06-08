@@ -90,11 +90,11 @@ public class Inventory {
     }
 
     public ObservableList<Part> getAllParts() {
-        return null;
+        return allParts;
     }
 
     public ObservableList<Product> getAllProducts() {
-        return null;
+        return allProducts;
     }
 
 }
