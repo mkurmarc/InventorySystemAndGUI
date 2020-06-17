@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 
 import java.util.List;
 
-public class Controller {
+public class MainScreenController {
 
     private List<Part> partId;
 
