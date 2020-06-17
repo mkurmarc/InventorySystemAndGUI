@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.3673012318029115" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="929.0" style="-fx-background-color: C0C0C0; -fx-border-style: solid; -fx-border-insets: 15; -fx-border-color: GRAY; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.3673012318029115" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="929.0" style="-fx-background-color: E0E0E0; -fx-border-style: solid; -fx-border-insets: 15; -fx-border-color: GRAY; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <items>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
             <Label text="Add Product" textFill="#0b1183">
                <font>
-                  <Font name="Arial Bold" size="16.0" />
+                  <Font name="Arial Bold" size="18.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="50.0" left="30.0" top="50.0" />

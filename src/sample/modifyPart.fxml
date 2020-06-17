@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0" style="-fx-background-color: E0E0E0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
@@ -14,7 +14,7 @@
                         <Insets left="20.0" right="30.0" top="15.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="Arial Bold" size="18.0" />
                     </font>
                 </Label>
                 <RadioButton mnemonicParsing="false" text="In-House">
@@ -153,12 +153,12 @@
         </HBox>
         <HBox prefHeight="78.0" prefWidth="477.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
+                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Save">
                     <HBox.margin>
-                        <Insets left="300.0" />
+                        <Insets left="270.0" />
                     </HBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel">
+                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Cancel">
                     <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                     </HBox.margin>
