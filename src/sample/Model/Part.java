@@ -7,9 +7,7 @@ public abstract class Part {
     private int idPart;
     private String namePart;
     private double pricePart;
-    private int stockPart;
-    private int minPart;
-    private int maxPart;
+    private int stockPart, minPart, maxPart;
 
     public Part() {
     }
