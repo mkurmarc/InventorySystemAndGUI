@@ -9,7 +9,7 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label id="LabelAddPart" text="Add Part" textFill="#0b1183">
+            <Label fx:id="addPart" text="Add Part" textFill="#0b1183">
                <HBox.margin>
                   <Insets left="20.0" right="30.0" top="15.0" />
                </HBox.margin>
@@ -17,12 +17,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <RadioButton id="RadioInHouse" fx:id="inhousePart" mnemonicParsing="false" onAction="#InHousePartSelectedHandler" text="In-House">
+            <RadioButton id="RadioInHouse" fx:id="inHouse" mnemonicParsing="false" onAction="#InHousePartSelectedHandler" text="In-House">
                <HBox.margin>
                   <Insets left="15.0" right="10.0" top="20.0" />
                </HBox.margin>
             </RadioButton>
-            <RadioButton id="RadioOutsourced" mnemonicParsing="false" onAction="#OutsourcedPartSelectedHandler" text="Outsourced">
+            <RadioButton id="RadioOutsourced" fx:id="outSourced" mnemonicParsing="false" onAction="#OutsourcedPartSelectedHandler" text="Outsourced">
                <HBox.margin>
                   <Insets left="15.0" top="20.0" />
                </HBox.margin>
@@ -153,12 +153,12 @@
       </HBox>
       <HBox prefHeight="78.0" prefWidth="477.0">
          <children>
-            <Button id="ButtonPartSave" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
+            <Button id="ButtonPartSave" fx:id="saveButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
                <HBox.margin>
                   <Insets left="300.0" />
                </HBox.margin>
             </Button>
-            <Button id="ButtonPartCancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel">
+            <Button id="ButtonPartCancel" fx:id="cancelButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>

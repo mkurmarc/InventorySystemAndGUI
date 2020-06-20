@@ -15,7 +15,7 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddPartController implements Initializable {
+public class AddModifyOutsourcedPartController implements Initializable {
 
     @FXML
     private Label addPart;
@@ -73,6 +73,8 @@ public class AddPartController implements Initializable {
         variableLabel.setText("Company Name");
         variableField.setText("Comp Name");
     }
+
+
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
