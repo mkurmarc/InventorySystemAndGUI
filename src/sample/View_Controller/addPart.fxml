@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.AddPartController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label text="Add Part" textFill="#0b1183">
+            <Label id="LabelAddPart" text="Add Part" textFill="#0b1183">
                <HBox.margin>
                   <Insets left="20.0" right="30.0" top="15.0" />
                </HBox.margin>
@@ -17,12 +17,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <RadioButton mnemonicParsing="false" text="In-House">
+            <RadioButton id="RadioInHouse" fx:id="inhousePart" mnemonicParsing="false" onAction="#InHousePartSelectedHandler" text="In-House">
                <HBox.margin>
                   <Insets left="15.0" right="10.0" top="20.0" />
                </HBox.margin>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Outsourced">
+            <RadioButton id="RadioOutsourced" mnemonicParsing="false" onAction="#OutsourcedPartSelectedHandler" text="Outsourced">
                <HBox.margin>
                   <Insets left="15.0" top="20.0" />
                </HBox.margin>
@@ -38,7 +38,7 @@
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Label>
-            <TextField prefHeight="32.0" prefWidth="125.0" />
+            <TextField id="TextFieldPartId" fx:id="IdPartField" prefHeight="32.0" prefWidth="125.0" />
          </children>
          <VBox.margin>
             <Insets left="75.0" />
@@ -54,7 +54,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="32.0" prefWidth="125.0" text="Part Name">
+            <TextField id="TextFieldPartName" fx:id="NamePartField" prefHeight="32.0" prefWidth="125.0" text="Part Name">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -65,7 +65,7 @@
       </HBox>
       <HBox layoutX="10.0" layoutY="210.0" prefHeight="85.0" prefWidth="200.0">
          <children>
-            <Label prefWidth="120.0" text="Inv">
+            <Label prefWidth="120.0" text="Inventory">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -73,7 +73,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="32.0" prefWidth="125.0" text="Inv">
+            <TextField id="TextFieldPartInv" fx:id="InventoryPartField" prefHeight="32.0" prefWidth="125.0" text="Current Inv">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -92,7 +92,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="32.0" prefWidth="125.0" text="Price/Cost">
+            <TextField id="TextFieldPartPriceCost" fx:id="priceCostPartField" prefHeight="32.0" prefWidth="125.0" text="Price/Cost">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -111,7 +111,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="32.0" prefWidth="82.0" text="Max">
+            <TextField id="TextFieldPartMax" fx:id="MaxPartField" prefHeight="32.0" prefWidth="82.0" text="Max">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -123,7 +123,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="130.0" layoutY="10.0" prefHeight="32.0" prefWidth="82.0" text="Min">
+            <TextField id="TextFieldPartMin" fx:id="MinPartField" layoutX="130.0" layoutY="10.0" prefHeight="32.0" prefWidth="82.0" text="Min">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -142,7 +142,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="32.0" prefWidth="97.0" text="Comp Nm">
+            <TextField id="TextFieldPartCompanyName" fx:id="companyNamePartField" prefHeight="32.0" prefWidth="97.0" text="Comp Nm">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -153,12 +153,12 @@
       </HBox>
       <HBox prefHeight="78.0" prefWidth="477.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
+            <Button id="ButtonPartSave" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
                <HBox.margin>
                   <Insets left="300.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel">
+            <Button id="ButtonPartCancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>

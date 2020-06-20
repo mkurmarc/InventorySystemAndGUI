@@ -1,4 +1,4 @@
-package sample;
+package sample.Model;
 
 public class InHouse {
     private int machineId;

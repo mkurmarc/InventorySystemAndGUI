@@ -1,4 +1,4 @@
-package sample;
+package sample.View_Contoller;
 
 public class AddProductController {
 }

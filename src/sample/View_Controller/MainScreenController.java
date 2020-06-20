@@ -1,7 +1,9 @@
-package sample;
+package sample.View_Contoller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import sample.Model.Part;
+import sample.Model.Product;
 
 import java.util.List;
 

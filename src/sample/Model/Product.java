@@ -1,9 +1,11 @@
-package sample;
+package sample.Model;
 
 import javafx.collections.ObservableList;
 
-abstract public class Part {
+import java.util.Collection;
 
+public class Product {
+    private ObservableList<Part> associatedParts;
     private int id;
     private String name;
     private double price;
@@ -11,7 +13,7 @@ abstract public class Part {
     private int min;
     private int max;
 
-    public void Part(int id, String name, double price, int stock, int min, int max) {
+    public void Product(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -68,5 +70,18 @@ abstract public class Part {
         return this.max;
     }
 
+    public void addAssociatedPart(Part part) {
+        associatedParts.add(part);
+    }
+
+    public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
+        associatedParts.remove(selectedAssociatedPart);
+        return associatedParts.contains(selectedAssociatedPart);
+   
+    }
+
+    public ObservableList<Part> getAllAssociatedParts() {
+        return associatedParts;
+    }
 
 }
