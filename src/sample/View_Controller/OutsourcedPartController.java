@@ -120,8 +120,9 @@ public class OutsourcedPartController implements Initializable {
             // Below save data from fields to respective database if the part data entered is valid
             Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, compName);
             Inventory.addPart(newPart);
+            // Exit to main screen below
         }
-        partInputErrorMessage(name, price, stock, min, max, compName, errorMsg);
+        System.out.println(partInputErrorMessage(name, price, stock, min, max, compName, errorMsg));
     }
 
     @Override
