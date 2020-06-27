@@ -6,7 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+// @author marcrios
+
+public class marcriosc482 extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -19,8 +21,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
-
         launch(args);
     }
 }

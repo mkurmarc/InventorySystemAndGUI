@@ -1,16 +1,12 @@
 package sample.Model;
 
-public class Outsourced extends Part{
+public class Outsourced extends Part {
+
     private String companyName;
 
-    public Outsourced(int id, String name, double price, int stock, int min, int max, String companyName) {
-
-//        this.idPart = id;
-//        this.namePart = namePart;
-//        this.pricePart = pricePart;
-//        this.stockPart = stockPart;
-//        this.minPart = minPart;
-//        this.maxPart = maxPart;
+    public Outsourced(int idPart, String namePart, double pricePart, int stockPart, int minPart, int maxPart, String companyName) {
+        super(idPart, namePart, pricePart, stockPart, minPart, maxPart);
+        setCompanyName(companyName);
     }
 
     public String getCompanyName() {

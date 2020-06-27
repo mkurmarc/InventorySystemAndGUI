@@ -9,7 +9,6 @@ public abstract class Part {
     private double pricePart;
     private int stockPart, minPart, maxPart;
 
-
     // Constructor
     public Part(int idPart, String namePart, double pricePart, int stockPart, int minPart, int maxPart) {
         this.idPart = idPart;

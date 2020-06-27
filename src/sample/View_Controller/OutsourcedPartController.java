@@ -2,6 +2,7 @@ package sample.View_Controller;
 
 import sample.Model.Outsourced;
 import sample.Model.Part;
+import sample.Model.Inventory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -105,19 +106,22 @@ public class OutsourcedPartController implements Initializable {
     // Saves data when save button is clicked
     @FXML
     public void saveButtonActionHandler(ActionEvent actionEvent) throws IOException {
+        // need method to create ID #s and check against the observable list
         int idPart = 1;
-        String name = this.nameOutsourcedPartField.getText();
-        double price = Double.parseDouble(this.priceCostOutsourcedPartField.getText());
-        int stock = Integer.parseInt(this.inventoryOutsourcedPartField.getText());
-        int min = Integer.parseInt(this.minOutsourcedPartField.getText());
-        int max = Integer.parseInt(this.maxOutsourcedPartField.getText());
-        String compName = this.compNameOutsourcedPartField.getText();
+        String name = nameOutsourcedPartField.getText();
+        double price = Double.parseDouble(priceCostOutsourcedPartField.getText());
+        int stock = Integer.parseInt(inventoryOutsourcedPartField.getText());
+        int min = Integer.parseInt(minOutsourcedPartField.getText());
+        int max = Integer.parseInt(maxOutsourcedPartField.getText());
+        String compName = compNameOutsourcedPartField.getText();
         String errorMsg = "";
 
         if (validOutsourcedPart(name, price, stock, min, max, compName, errorMsg)) {
             // Below save data from fields to respective database if the part data entered is valid
             Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, compName);
+            Inventory.addPart(newPart);
         }
+        partInputErrorMessage(name, price, stock, min, max, compName, errorMsg);
     }
 
     @Override
