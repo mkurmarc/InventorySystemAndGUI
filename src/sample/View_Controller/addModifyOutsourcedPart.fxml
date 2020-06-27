@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.AddPartController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.OutsourcedPartController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="addPart" text="Add Part" textFill="#0b1183">
+            <Label fx:id="addModifyOutsourced" text="Add Part" textFill="#0b1183">
                <HBox.margin>
                   <Insets left="20.0" right="30.0" top="15.0" />
                </HBox.margin>
@@ -17,12 +17,15 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <RadioButton id="RadioInHouse" fx:id="inHouse" mnemonicParsing="false" onAction="#InHousePartSelectedHandler" text="In-House">
+           <RadioButton fx:id="inHouseOut" mnemonicParsing="false" onAction="#inHousePartSelectedHandler" text="In-House">
                <HBox.margin>
                   <Insets left="15.0" right="10.0" top="20.0" />
                </HBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="sourceOfPart" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton id="RadioOutsourced" fx:id="outSourced" mnemonicParsing="false" onAction="#OutsourcedPartSelectedHandler" text="Outsourced">
+            <RadioButton fx:id="outSourcedOut" mnemonicParsing="false" selected="true" text="Outsourced" toggleGroup="$sourceOfPart">
                <HBox.margin>
                   <Insets left="15.0" top="20.0" />
                </HBox.margin>
@@ -38,7 +41,7 @@
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Label>
-            <TextField id="TextFieldPartId" fx:id="IdPartField" prefHeight="32.0" prefWidth="125.0" />
+            <TextField fx:id="idOutsourcedPartField" prefHeight="32.0" prefWidth="125.0" />
          </children>
          <VBox.margin>
             <Insets left="75.0" />
@@ -54,7 +57,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField id="TextFieldPartName" fx:id="NamePartField" prefHeight="32.0" prefWidth="125.0" text="Part Name">
+            <TextField fx:id="nameOutsourcedPartField" prefHeight="32.0" prefWidth="125.0" text="Part Name">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -73,7 +76,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField id="TextFieldPartInv" fx:id="InventoryPartField" prefHeight="32.0" prefWidth="125.0" text="Current Inv">
+            <TextField fx:id="inventoryOutsourcedPartField" prefHeight="32.0" prefWidth="125.0" text="Current Inv">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -92,7 +95,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField id="TextFieldPartPriceCost" fx:id="priceCostPartField" prefHeight="32.0" prefWidth="125.0" text="Price/Cost">
+            <TextField fx:id="priceCostOutsourcedPartField" prefHeight="32.0" prefWidth="125.0" text="Price/Cost">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -111,7 +114,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField id="TextFieldPartMax" fx:id="MaxPartField" prefHeight="32.0" prefWidth="82.0" text="Max">
+            <TextField fx:id="maxOutsourcedPartField" prefHeight="32.0" prefWidth="82.0" text="Max">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -123,7 +126,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <TextField id="TextFieldPartMin" fx:id="MinPartField" layoutX="130.0" layoutY="10.0" prefHeight="32.0" prefWidth="82.0" text="Min">
+            <TextField fx:id="minOutsourcedPartField" layoutX="130.0" layoutY="10.0" prefHeight="32.0" prefWidth="82.0" text="Min">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -142,7 +145,7 @@
                   <Insets top="6.0" />
                </HBox.margin>
             </Label>
-            <TextField id="TextFieldPartCompanyName" fx:id="companyNamePartField" prefHeight="32.0" prefWidth="97.0" text="Comp Nm">
+            <TextField fx:id="compNameOutsourcedPartField" prefHeight="32.0" prefWidth="97.0" text="Comp Nm">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></TextField>
@@ -153,12 +156,12 @@
       </HBox>
       <HBox prefHeight="78.0" prefWidth="477.0">
          <children>
-            <Button id="ButtonPartSave" fx:id="saveButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
+            <Button fx:id="saveOutsourcedButton" onAction="#saveButtonActionHandler" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save">
                <HBox.margin>
                   <Insets left="300.0" />
                </HBox.margin>
             </Button>
-            <Button id="ButtonPartCancel" fx:id="cancelButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel">
+            <Button fx:id="cancelOutsourcedButton" onAction="#cancelButtonActionHandler" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>

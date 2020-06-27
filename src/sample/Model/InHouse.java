@@ -1,9 +1,10 @@
 package sample.Model;
 
-public class InHouse {
+public class InHouse extends Part {
     private int machineId;
 
     public InHouse(int id, String name, double price, int stock, int min, int max, int machineId) {
+        super(int id, String name, double price, int stock, int min, int max, int machineId);
 
     }
 
