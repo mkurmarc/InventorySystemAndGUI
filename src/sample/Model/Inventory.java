@@ -9,10 +9,10 @@ import java.util.Observable;
 
 public class Inventory {
 
-    private ObservableList<Part> allParts = FXCollections.observableArrayList();
-    private ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+    private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
-    public void addPart(Part newPart) {
+    public static void addPart(Part newPart) {
         allParts.add(newPart);
     }
 
@@ -53,7 +53,7 @@ public class Inventory {
         for(int i=0; i < (allParts.size()); i++) {
             checkPart = allParts.get(i);
             checkPartName = checkPart.getNamePart();
-            if(checkPartName == partName) {
+            if(checkPartName.equals(partName)) {
                 newList.add(checkPart);
                 break;
             }
