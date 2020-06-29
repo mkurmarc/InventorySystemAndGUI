@@ -91,7 +91,7 @@ public class OutsourcedPartController implements Initializable {
 
     // Method below validates outsourced parts and prints error message if not valid
     public boolean validOutsourcedPart(String name, double price, int stock, int min, int max, String compName, String errorMessage) {
-        if (!(name.equals(null)) && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min && compName != null) {
+        if (name != null && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min && compName != null) {
             return true;
         }
         else {
@@ -103,7 +103,7 @@ public class OutsourcedPartController implements Initializable {
 
 
 
-    // Saves data when save button is clicked if the input is valid
+    // Saves data when save button is clicked
     @FXML
     public void saveButtonActionHandler(ActionEvent actionEvent) throws IOException {
         // need method to create ID #s and check against the observable list
@@ -121,26 +121,8 @@ public class OutsourcedPartController implements Initializable {
             Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, compName);
             Inventory.addPart(newPart);
             // Exit to main screen below
-            Stage stageMainScreen;
-            Parent root;
-            stageMainScreen = (Stage) saveOutsourcedButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
-            root = loader.load();
-            Scene scene = new Scene(root);
-            stageMainScreen.setScene(scene);
-            stageMainScreen.show();
         }
-        else {
-            Stage stageOutsourcedScreen;
-            Parent root;
-            stageOutsourcedScreen = (Stage) saveOutsourcedButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
-            root = loader.load();
-            Scene scene = new Scene(root);
-            stageOutsourcedScreen.setScene(scene);
-            stageOutsourcedScreen.show();
-            System.out.println(partInputErrorMessage(name, price, stock, min, max, compName, errorMsg));
-        }
+        System.out.println(partInputErrorMessage(name, price, stock, min, max, compName, errorMsg));
     }
 
     @Override

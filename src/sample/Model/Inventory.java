@@ -1,16 +1,18 @@
+package sample.Model;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.Part;
-import sample.Product;
+import sample.Model.Part;
+import sample.Model.Product;
 
 import java.util.Observable;
 
 public class Inventory {
 
-    private ObservableList<Part> allParts;
-    private ObservableList<Product> allProducts;
+    private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+    private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
-    public void addPart(Part newPart) {
+    public static void addPart(Part newPart) {
         allParts.add(newPart);
     }
 
@@ -23,7 +25,7 @@ public class Inventory {
         int checkPartID;
         for(int i=0; i < (allParts.size()); i++) {
             checkPart = allParts.get(i);
-            checkPartID = checkPart.getId();
+            checkPartID = checkPart.getIdPart();
             if(checkPartID == partId) {
                 break;
             }
@@ -50,8 +52,8 @@ public class Inventory {
         String checkPartName;
         for(int i=0; i < (allParts.size()); i++) {
             checkPart = allParts.get(i);
-            checkPartName = checkPart.getName();
-            if(checkPartName == partName) {
+            checkPartName = checkPart.getNamePart();
+            if(checkPartName.equals(partName)) {
                 newList.add(checkPart);
                 break;
             }
