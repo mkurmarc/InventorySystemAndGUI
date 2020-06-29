@@ -121,7 +121,23 @@ public class OutsourcedPartController implements Initializable {
             Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, compName);
             Inventory.addPart(newPart);
             // Exit to main screen below
+            Stage stageMainScreen;
+            Parent root;
+            stageMainScreen = (Stage) saveOutsourcedButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
+            root = loader.load();
+            Scene scene = new Scene(root);
+            stageMainScreen.setScene(scene);
+            stageMainScreen.show();
         }
+        Stage stageOutsourcedScreen;
+        Parent root;
+        stageOutsourcedScreen = (Stage) saveOutsourcedButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stageOutsourcedScreen.setScene(scene);
+        stageOutsourcedScreen.show();
         System.out.println(partInputErrorMessage(name, price, stock, min, max, compName, errorMsg));
     }
 

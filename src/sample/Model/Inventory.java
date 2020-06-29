@@ -12,11 +12,14 @@ public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
+    private static int partIdTally;
+    private static int productIdTally;
+
     public static void addPart(Part newPart) {
         allParts.add(newPart);
     }
 
-    public void addProduct(Product newProduct) {
+    public static void addProduct(Product newProduct) {
         allProducts.add(newProduct);
     }
 
@@ -46,19 +49,16 @@ public class Inventory {
         return checkProduct;
     }
 
-    public ObservableList<Part> lookupPart(String partName) {
-        ObservableList<Part> newList = null;
-        Part checkPart = null;
-        String checkPartName;
+    public static ObservableList<Part> lookupPart(String partName) {
+        ObservableList<Part> queryPartList = null;
+
         for(int i=0; i < (allParts.size()); i++) {
-            checkPart = allParts.get(i);
-            checkPartName = checkPart.getNamePart();
-            if(checkPartName.equals(partName)) {
-                newList.add(checkPart);
-                break;
-            }
+                if (allParts.get(i).getNamePart().equals(partName)) {
+                    queryPartList.add();
+                    break;
+                }
         }
-        return newList;
+        return queryPartList;
     }
 
     public ObservableList<Product> lookupProduct(String productName) {

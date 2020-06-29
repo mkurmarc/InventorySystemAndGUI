@@ -1,39 +1,176 @@
 package sample.View_Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import sample.Model.Part;
-import sample.Model.Product;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import sample.Model.*;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainScreenController {
+public class MainScreenController implements Initializable {
 
-    private List<Part> partId;
+    // All FXML elements listed below for mainScreen.fxml
+    @FXML
+    private Button partsSearchButton;
 
-    private List<Product> productId;
+    @FXML
+    private TextField partsSearchField;
 
-    private List<Part> partName;
+    @FXML
+    private Button partsAddButton;
 
-    private List<Product> productName;
+    @FXML
+    private Button partsModifyButton;
 
-    private List<Part> partsInInventory;
+    @FXML
+    private Button partsDeleteButton;
 
-    private List<Product> productsInInventory;
+    @FXML
+    private Button exitButton;
 
-    private Label partIdLabel;
+    @FXML
+    private Button productsSearchButton;
 
-    private Label partNameLabel;
+    @FXML
+    private TextField productsSearchField;
 
-    private Label productNameLabel;
+    @FXML
+    private Button productsAddButton;
 
-//    @FXML
-//    public void handleAddPart() {
-//
-//    }
+    @FXML
+    private Button productsModifyButton;
 
-//    public void initialize() {
-//    }
+    @FXML
+    private Button productsDeleteButton;
+
+    @FXML
+    private Label applicationNameLabel;
+
+    @FXML
+    private Label partsSearchLabel;
+
+    @FXML
+    private Label productsSearchLabel;
+
+    @FXML
+    private TableView<Part> productsTableView;
+
+    @FXML
+    private TableView<Part> partsTableView;
+
+    @FXML
+    private TableColumn<Part, Integer> partIDColumn;
+
+    @FXML
+    private TableColumn<Part, String> partNameColumn;
+
+    @FXML
+    private TableColumn<Part, Integer> partInventoryColumn;
+
+    @FXML
+    private TableColumn<Part, Double> partPriceColumn;
+
+    private static boolean started;
+
+    public void partsSearchButtonHandler(ActionEvent actionEvent) throws IOException {
+        String searchText = partsSearchField.getText();
+        Inventory.lookupPart(searchText);
+    }
+
+    public void partsAddButtonHandler(ActionEvent actionEvent) throws IOException {
+        Stage stageAddPartOutsourcedScreen;
+        Parent root;
+        stageAddPartOutsourcedScreen = (Stage) partsAddButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stageAddPartOutsourcedScreen.setScene(scene);
+        stageAddPartOutsourcedScreen.show();
+    }
 
 
+    public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
+        Stage stageModifyPartScreen;
+        Parent root;
+        stageModifyPartScreen = (Stage) partsModifyButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyInHousePart.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stageModifyPartScreen.setScene(scene);
+        stageModifyPartScreen.show();
+
+    }
+
+
+    public void partsDeleteButtonHandler(ActionEvent actionEvent) {
+
+    }
+
+
+    public void exitButtonHandler(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+
+    public void productsSearchButtonHandler(ActionEvent actionEvent) {
+
+    }
+
+
+    public void productsAddButtonHandler(ActionEvent actionEvent) throws IOException {
+        Stage stageAddProductsOutsourcedScreen;
+        Parent root;
+        stageAddProductsOutsourcedScreen = (Stage) productsAddButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stageAddProductsOutsourcedScreen.setScene(scene);
+        stageAddProductsOutsourcedScreen.show();
+
+    }
+
+
+    public void productsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
+        Stage stageModifyProductScreen;
+        Parent root;
+        stageModifyProductScreen = (Stage) productsModifyButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stageModifyProductScreen.setScene(scene);
+        stageModifyProductScreen.show();
+    }
+
+
+    public void productsDeleteButtonHandler(ActionEvent actionEvent) {
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if(!started) {
+            // Creates default parts below
+            Inventory.addPart(new Outsourced(1, "Motherboard X-123", 125.25, 8,
+                    1, 500, "Grandpa Apple"));
+            Inventory.addPart(new Outsourced(2, "Central Processing Unit 1500", 223.55, 19,
+                    1, 500, "Samyoung"));
+            Inventory.addPart(new InHouse(3, "Solid State Drive SSD-120", 198.56, 30,
+                    1, 500, 12556));
+            Inventory.addPart(new InHouse(4, "Hard Disk Drive HDD-1TB", 86.33, 55,
+                    1, 500, 15697));
+
+            // Creates default products below
+            Inventory.addProduct(new Product(1000, "Grandpa CamBook Apple 15 inch", 1556.99, 6, 1, 500));
+            Inventory.addProduct(new Product(1015, "Samyoung Black Hole Smart Phone", 805.69, 12, 1, 500));
+
+            started = true;
+        }
+    }
 }
