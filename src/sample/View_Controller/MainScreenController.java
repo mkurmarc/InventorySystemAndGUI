@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.Model.*;
 
@@ -91,6 +92,8 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPriceColumn;
 
+    public Label modifyLabel = new Label("Modify");
+
     public MainScreenController() {
     }
 
@@ -156,7 +159,11 @@ public class MainScreenController implements Initializable {
 
     }
 
+//    public void changeLabelTextHandler(MouseEvent mouseEvent) {
+//        OutsourcedPartController.addModifyOutsourced.setText("Modify");
+//    }
 
+    // When modify button in product area on main screen is clicked, the method below handles it
     public void productsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
         Stage stageModifyProductScreen;
         Parent root;

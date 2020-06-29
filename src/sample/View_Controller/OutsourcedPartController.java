@@ -16,45 +16,46 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static sample.Model.Part.partInputErrorMessage;
+import static sample.Model.Part.partInputErrorMessageOutsourced;
 
 public class OutsourcedPartController implements Initializable {
+
     // All FXML elements listed below for addModifyOutsourcedPart.fxml
     @FXML
-    public Label addModifyOutsourced;
+    private Label addModifyOutsourced;
 
     @FXML
-    public RadioButton inHouseOut;
+    private RadioButton inHouseOut;
 
     @FXML
-    public RadioButton outSourcedOut;
+    private RadioButton outSourcedOut;
 
     @FXML
-    public TextField idOutsourcedPartField;
+    private TextField idOutsourcedPartField;
 
     @FXML
-    public TextField nameOutsourcedPartField;
+    private TextField nameOutsourcedPartField;
 
     @FXML
-    public TextField inventoryOutsourcedPartField;
+    private TextField inventoryOutsourcedPartField;
 
     @FXML
-    public TextField priceCostOutsourcedPartField;
+    private TextField priceCostOutsourcedPartField;
 
     @FXML
-    public TextField maxOutsourcedPartField;
+    private TextField maxOutsourcedPartField;
 
     @FXML
-    public TextField minOutsourcedPartField;
+    private TextField minOutsourcedPartField;
 
     @FXML
-    public TextField compNameOutsourcedPartField;
+    private TextField compNameOutsourcedPartField;
 
     @FXML
-    public Button saveOutsourcedButton;
+    private Button saveOutsourcedButton;
 
     @FXML
-    public Button cancelOutsourcedButton;
+    private Button cancelOutsourcedButton;
 
     @FXML
     private ToggleGroup sourceOfPart;
@@ -91,17 +92,15 @@ public class OutsourcedPartController implements Initializable {
 
     // Method below validates outsourced parts and prints error message if not valid
     public boolean validOutsourcedPart(String name, double price, int stock, int min, int max, String compName, String errorMessage) {
-        if (name != null && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min && compName != null) {
+        if (!name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min && !compName.equals("")) {
             return true;
         }
         else {
-            errorMessage = partInputErrorMessage(name, price, stock, min, max, compName, errorMessage);
+            errorMessage = partInputErrorMessageOutsourced(name, price, stock, min, max, compName, errorMessage);
             System.out.println(errorMessage);
             return false;
         }
     }
-
-
 
     // Saves data when save button is clicked
     @FXML
@@ -138,7 +137,7 @@ public class OutsourcedPartController implements Initializable {
         Scene scene = new Scene(root);
         stageOutsourcedScreen.setScene(scene);
         stageOutsourcedScreen.show();
-        System.out.println(partInputErrorMessage(name, price, stock, min, max, compName, errorMsg));
+        System.out.println(partInputErrorMessageOutsourced(name, price, stock, min, max, compName, errorMsg));
     }
 
     @Override

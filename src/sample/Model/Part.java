@@ -68,9 +68,9 @@ public abstract class Part {
         this.maxPart = maxPart;
     }
 
-    // Method is for In House parts only
-    public static String partInputErrorMessage(String name, double price, int stock, int min, int max, String errorMsg) {
-        if (name == null) {
+    // Method is for In-House parts only
+    public static String partInputErrorMessageInHouse(String name, double price, int stock, int min, int max, int machineId, String errorMsg) {
+        if (name.equals("")) {
             errorMsg = errorMsg + ("The name field is empty. ");
         }
         if (price == 0) {
@@ -85,37 +85,34 @@ public abstract class Part {
         if (stock > max || stock < min) {
             errorMsg = errorMsg + ("The inventory must be between the minimum and maximum values. ");
         }
-        return errorMsg;
-    }
-
-    // Overloaded this method for Outsourced parts only
-    public static String partInputErrorMessage(String name, double price, int stock, int min, int max, String compName, String errorMsg) {
-        if (name == null) {
-            errorMsg += ("The name field is empty. ");
-        }
-        if (price == 0) {
-            errorMsg += ("The price must be more than 0. ");
-        }
-        if (stock < 1) {
-            errorMsg += ("The inventory must be more than 0. ");
-        }
-        if (min > max) {
-            errorMsg += ("The minimum must be less than the maximum. ");
-        }
-        if (stock > max || stock < min) {
-            errorMsg += ("The inventory must be between the minimum and maximum values. ");
-        }
-        if (compName == null) {
-            errorMsg += ("The company name is empty.");
+        if (machineId == 0) {
+            errorMsg = errorMsg + ("The machine ID field must be more than 0. ");
         }
         return errorMsg;
     }
 
-    // Create method for part ID generation
-//    public int idGenerator() {
-//        int id = 0;
-//        if (// ID number not in use) {
-//        // create ID
-//        return id;
-//    }
-}
+
+        // Overloaded this method for Outsourced parts only
+
+        public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max, String compName, String errorMsg) {
+            if (name.equals("")) {
+                errorMsg += ("The name field is empty. ");
+            }
+            if (price == 0) {
+                errorMsg += ("The price must be more than 0. ");
+            }
+            if (stock < 1) {
+                errorMsg += ("The inventory must be more than 0. ");
+            }
+            if (min > max) {
+                errorMsg += ("The minimum must be less than the maximum. ");
+            }
+            if (stock > max || stock < min) {
+                errorMsg += ("The inventory must be between the minimum and maximum values. ");
+            }
+            if (compName.equals("")) {
+                errorMsg += ("The company name is empty. ");
+            }
+            return errorMsg;
+        }
+    }
