@@ -50,13 +50,17 @@ public class Inventory {
     }
 
     public static ObservableList<Part> lookupPart(String partName) {
-        ObservableList<Part> queryPartList = null;
+        ObservableList<Part> queryPartList = FXCollections.observableArrayList();
 
-        for(int i=0; i < (allParts.size()); i++) {
-                if (allParts.get(i).getNamePart().equals(partName)) {
-                    queryPartList.add();
-                    break;
+        if(partName.length() < 1) {
+            queryPartList = allParts;
+        }
+        else {
+            for(int i=0; i < (allParts.size()); i++) {
+                if (allParts.get(i).getNamePart().toLowerCase().contains(partName.toLowerCase())) {
+                    queryPartList.add(allParts.get(i));
                 }
+            }
         }
         return queryPartList;
     }
