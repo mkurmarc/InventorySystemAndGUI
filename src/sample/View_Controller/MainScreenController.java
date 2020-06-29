@@ -1,5 +1,6 @@
 package sample.View_Controller;
 
+import com.sun.scenario.effect.impl.prism.PrDrawable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sample.Model.*;
 
@@ -60,7 +62,7 @@ public class MainScreenController implements Initializable {
     private Label productsSearchLabel;
 
     @FXML
-    private TableView<Part> productsTableView;
+    private TableView<Product> productsTableView;
 
     @FXML
     private TableView<Part> partsTableView;
@@ -77,11 +79,26 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Part, Double> partPriceColumn;
 
+    @FXML
+    private TableColumn<Product, Integer> productIDColumn;
+
+    @FXML
+    private TableColumn<Product, String> productNameColumn;
+
+    @FXML
+    private TableColumn<Product, Integer> productInventoryColumn;
+
+    @FXML
+    private TableColumn<Product, Double> productPriceColumn;
+
+    public MainScreenController() {
+    }
+
     private static boolean started;
 
     public void partsSearchButtonHandler(ActionEvent actionEvent) throws IOException {
         String searchText = partsSearchField.getText();
-        Inventory.lookupPart(searchText);
+        partsTableView.setItems(Inventory.lookupPart(searchText));
     }
 
     public void partsAddButtonHandler(ActionEvent actionEvent) throws IOException {
@@ -110,7 +127,9 @@ public class MainScreenController implements Initializable {
 
 
     public void partsDeleteButtonHandler(ActionEvent actionEvent) {
-
+        Part deletePart = partsTableView.getSelectionModel().getSelectedItem();
+        Inventory.deletePart(deletePart);
+        System.out.println("Part selected has been deleted from existence.");
     }
 
 
@@ -120,7 +139,8 @@ public class MainScreenController implements Initializable {
 
 
     public void productsSearchButtonHandler(ActionEvent actionEvent) {
-
+        String searchText = productsSearchField.getText();
+        productsTableView.setItems(Inventory.lookupProduct(searchText));
     }
 
 
@@ -150,7 +170,9 @@ public class MainScreenController implements Initializable {
 
 
     public void productsDeleteButtonHandler(ActionEvent actionEvent) {
-
+        Product deleteProduct = productsTableView.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(deleteProduct);
+        System.out.println("Product selected has been deleted from existence.");
     }
 
     @Override
@@ -169,8 +191,23 @@ public class MainScreenController implements Initializable {
             // Creates default products below
             Inventory.addProduct(new Product(1000, "Grandpa CamBook Apple 15 inch", 1556.99, 6, 1, 500));
             Inventory.addProduct(new Product(1015, "Samyoung Black Hole Smart Phone", 805.69, 12, 1, 500));
+            Inventory.addProduct(new Product(1015, "Bell Enspiron Notebook 17 inch", 1159.44, 15, 1, 500));
 
             started = true;
         }
+        //Parts table and columns
+        partIDColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
+        partNameColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
+        partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
+        partInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
+        partsTableView.setItems(Inventory.getAllParts());
+
+        // Products table and columns
+        productIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        productInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productsTableView.setItems(Inventory.getAllProducts());
+
     }
 }
