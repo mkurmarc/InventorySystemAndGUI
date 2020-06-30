@@ -9,9 +9,10 @@ public class Product {
     private int id;
     private String name;
     private double price;
-    private int stock;
-    private int min;
-    private int max;
+
+    private int stock, min, max;
+
+    private String modifyLabelText = "Modify Part";
 
     public Product(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
@@ -84,4 +85,11 @@ public class Product {
         return associatedParts;
     }
 
+    public String getNameProduct() {
+        return name;
+    }
+
+    public String getModifyLabelText() {
+        return modifyLabelText;
+    }
 }

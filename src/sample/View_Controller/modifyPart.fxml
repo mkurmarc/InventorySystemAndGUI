@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0"
+      xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.modifyPartController">
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <Label fx:id="modifyPartLabel" text="Modify Part" textFill="#0b1183">
+            <HBox.margin>
+                <Insets left="20.0" right="28.0" top="15.0" />
+            </HBox.margin>
+            <font>
+                <Font name="Arial Bold" size="18.0" />
+            </font>
+        </Label>
+        <RadioButton fx:id="inHouseModifyPart" mnemonicParsing="false" onAction="#inhouseModifyRadioButtonHandler" selected="true" text="In-House">
+            <HBox.margin>
+                <Insets left="15.0" right="10.0" top="20.0" />
+            </HBox.margin>
+            <toggleGroup>
+                <ToggleGroup fx:id="sourceOfPart" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="outsourcedModifyPart" mnemonicParsing="false" onAction="#outsourcedModifyRadioHandler" text="Outsourced" toggleGroup="$sourceOfPart">
+            <HBox.margin>
+                <Insets left="15.0" top="20.0" />
+            </HBox.margin>
+        </RadioButton>
+    </HBox>
+    <HBox prefHeight="85.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets left="75.0" />
+        </VBox.margin>
+        <Label prefWidth="120.0" text="ID">
+            <HBox.margin>
+                <Insets top="6.0" />
+            </HBox.margin>
+            <font>
+                <Font name="Arial" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="idModifyPartField" prefHeight="32.0" prefWidth="125.0" />
+    </HBox>
+    <HBox layoutX="10.0" layoutY="110.0" prefHeight="85.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets left="75.0" />
+        </VBox.margin>
+        <Label prefWidth="120.0" text="Name">
+            <font>
+                <Font name="Arial" size="14.0" />
+            </font>
+            <HBox.margin>
+                <Insets top="6.0" />
+            </HBox.margin>
+        </Label>
+        <TextField fx:id="nameModifyPartField" prefHeight="32.0" prefWidth="125.0" text="Part Name">
+            <font>
+                <Font name="System Italic" size="12.0" />
+            </font>
+        </TextField>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="210.0" prefHeight="85.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets left="75.0" />
+        </VBox.margin>
+        <Label prefWidth="120.0" text="Inventory">
+            <font>
+                <Font name="Arial" size="14.0" />
+            </font>
+            <HBox.margin>
+                <Insets top="6.0" />
+            </HBox.margin>
+        </Label>
+        <TextField fx:id="inventoryModifyPartField" prefHeight="32.0" prefWidth="125.0" text="Current Inv">
+            <font>
+                <Font name="System Italic" size="12.0" />
+            </font>
+        </TextField>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="310.0" prefHeight="85.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets left="75.0" />
+        </VBox.margin>
+        <Label prefWidth="120.0" text="Price/Cost">
+            <font>
+                <Font name="Arial" size="14.0" />
+            </font>
+            <HBox.margin>
+                <Insets top="6.0" />
+            </HBox.margin>
+        </Label>
+        <TextField fx:id="priceCostModifyField" prefHeight="32.0" prefWidth="125.0" text="Price/Cost">
+            <font>
+                <Font name="System Italic" size="12.0" />
+            </font>
+        </TextField>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="367.0" prefHeight="85.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets left="75.0" />
+        </VBox.margin>
+        <Label prefWidth="120.0" text="Max">
+            <font>
+                <Font name="Arial" size="14.0" />
+            </font>
+            <HBox.margin>
+                <Insets top="6.0" />
+            </HBox.margin>
+        </Label>
+        <TextField fx:id="maxModifyPartField" prefHeight="32.0" prefWidth="82.0" text="Max">
+            <font>
+                <Font name="System Italic" size="12.0" />
+            </font>
+        </TextField>
+        <Label text="Min">
+            <HBox.margin>
+                <Insets left="20.0" right="10.0" top="6.0" />
+            </HBox.margin>
+            <font>
+                <Font name="Arial" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="minModifyPartField" layoutX="130.0" layoutY="10.0" prefHeight="32.0" prefWidth="82.0" text="Min">
+            <font>
+                <Font name="System Italic" size="12.0" />
+            </font>
+        </TextField>
+    </HBox>
+    <HBox layoutX="10.0" layoutY="382.0" prefHeight="85.0" prefWidth="200.0">
+        <VBox.margin>
+            <Insets left="75.0" />
+        </VBox.margin>
+        <Label fx:id="variableModifyPartLabel" prefWidth="120.0" text="Machine ID">
+            <font>
+                <Font name="Arial" size="14.0" />
+            </font>
+            <HBox.margin>
+                <Insets top="6.0" />
+            </HBox.margin>
+        </Label>
+        <TextField fx:id="variableModifyPartField" prefHeight="32.0" prefWidth="97.0" text="Mach ID">
+            <font>
+                <Font name="System Italic" size="12.0" />
+            </font>
+        </TextField>
+    </HBox>
+    <HBox prefHeight="78.0" prefWidth="477.0">
+        <Button fx:id="saveModifyPartButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveButtonInHouseHandler" prefHeight="27.0" prefWidth="73.0" text="Save">
+            <HBox.margin>
+                <Insets left="277.0" />
+            </HBox.margin>
+        </Button>
+        <Button fx:id="cancelModifyPartButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelButtonInHouseHandler" prefHeight="27.0" prefWidth="73.0" text="Cancel">
+            <HBox.margin>
+                <Insets left="20.0" right="20.0" />
+            </HBox.margin>
+        </Button>
+    </HBox>
+</VBox>

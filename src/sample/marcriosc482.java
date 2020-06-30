@@ -12,7 +12,7 @@ public class marcriosc482 extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("View_Controller/mainScreen.fxml")); // View_Controller/addModifyOutsourcedPart.fxml
+        Parent root = FXMLLoader.load(getClass().getResource("View_Controller/mainScreen.fxml")); // View_Controller/addPart.fxml
         primaryStage.setTitle("Inventory Manager");
         primaryStage.setScene(new Scene(root, 1050, 400));
         primaryStage.show();

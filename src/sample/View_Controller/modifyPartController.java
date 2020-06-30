@@ -3,69 +3,88 @@ package sample.View_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.Model.InHouse;
 import sample.Model.Inventory;
-import sample.Model.Outsourced;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static sample.Model.Part.*;
 
-public class inHousePartController {
+public class modifyPartController implements Initializable {
 
     @FXML
-    private Label AddModifyInhouse;
+    private Label modifyPartLabel;
 
     @FXML
-    private RadioButton inHouseIn;
+    private RadioButton inHouseModifyPart;
 
     @FXML
     private ToggleGroup sourceOfPart;
 
     @FXML
-    private RadioButton outsourcedIn;
+    private RadioButton outsourcedModifyPart;
 
     @FXML
-    private TextField IdInhousePartField;
+    private TextField idModifyPartField;
 
     @FXML
-    private TextField nameInHousePartField;
+    private TextField nameModifyPartField;
 
     @FXML
-    private TextField inventoryInHousePartField;
+    private TextField inventoryModifyPartField;
 
     @FXML
-    private TextField priceCostInHousePartField;
+    private TextField priceCostModifyField;
 
     @FXML
-    private TextField maxInHousePartField;
+    private TextField maxModifyPartField;
 
     @FXML
-    private TextField minInHousePartField;
+    private TextField minModifyPartField;
 
     @FXML
-    private TextField machineIdInHousePartField;
+    private Label variableModifyPartLabel;
 
     @FXML
-    private Button saveInHouseButton;
+    private TextField variableModifyPartField;
 
     @FXML
-    private Button cancelInHouseButton;
+    private Button saveModifyPartButton;
+
+    @FXML
+    private Button cancelModifyPartButton;
 
     boolean isInHouse;
 
-    // outsourcedPartSelectedHandler changes the scene to addModifyInHousePart.fxml after clicking the inHouseOut radio button
+    @FXML
+    public void inhouseModifyRadioButtonHandler(ActionEvent actionEvent) {
+        isInHouse = true;
+        variableModifyPartLabel.setText("Machine ID");
+        variableModifyPartField.setText("Mach ID");
+    }
+
+    @FXML
+    public void outsourcedModifyRadioHandler(ActionEvent actionEvent) {
+        isInHouse = false;
+        variableModifyPartLabel.setText("Company Name");
+        variableModifyPartField.setText("Comp Name");
+    }
+
+    // outsourcedPartSelectedHandler changes the scene to modifyPart.fxml after clicking the inHouseOut radio button
     @FXML
     public void outsourcedPartSelectedHandler(ActionEvent actionEvent) throws IOException {
         isInHouse = true;
         Stage stageOutsourced;
         Parent root;
-        stageOutsourced = (Stage) outsourcedIn.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
+        stageOutsourced = (Stage) outsourcedModifyPart.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addPart.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
         stageOutsourced.setScene(scene);
@@ -77,12 +96,12 @@ public class inHousePartController {
     public void saveButtonInHouseHandler(ActionEvent actionEvent) throws IOException {
         // need method to create ID #s and check against the observable list
         int idPart = 100;
-        String name = nameInHousePartField.getText();
-        double price = Double.parseDouble(priceCostInHousePartField.getText());
-        int stock = Integer.parseInt(inventoryInHousePartField.getText());
-        int min = Integer.parseInt(minInHousePartField.getText());
-        int max = Integer.parseInt(maxInHousePartField.getText());
-        int machineId = Integer.parseInt(machineIdInHousePartField.getText());
+        String name = nameModifyPartField.getText();
+        double price = Double.parseDouble(priceCostModifyField.getText());
+        int stock = Integer.parseInt(inventoryModifyPartField.getText());
+        int min = Integer.parseInt(minModifyPartField.getText());
+        int max = Integer.parseInt(maxModifyPartField.getText());
+        int machineId = Integer.parseInt(variableModifyPartField.getText());
         String errorMsg = "";
 
         if (validInHousePart(name, price, stock, min, max, machineId, errorMsg)) {
@@ -93,7 +112,7 @@ public class inHousePartController {
             // Exit to main screen below
             Stage stageMainScreen;
             Parent root;
-            stageMainScreen = (Stage) saveInHouseButton.getScene().getWindow();
+            stageMainScreen = (Stage) saveModifyPartButton.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
             root = loader.load();
             Scene scene = new Scene(root);
@@ -102,7 +121,7 @@ public class inHousePartController {
         }
         Stage stageInHouse;
         Parent root;
-        stageInHouse = (Stage) saveInHouseButton.getScene().getWindow();
+        stageInHouse = (Stage) saveModifyPartButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyInHouse.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
@@ -116,7 +135,7 @@ public class inHousePartController {
     public void cancelButtonInHouseHandler(ActionEvent actionEvent) throws IOException {
         Stage stageMainScreen;
         Parent root;
-        stageMainScreen = (Stage) cancelInHouseButton.getScene().getWindow();
+        stageMainScreen = (Stage) cancelModifyPartButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
@@ -134,5 +153,10 @@ public class inHousePartController {
             System.out.println(errorMessage);
             return false;
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 }

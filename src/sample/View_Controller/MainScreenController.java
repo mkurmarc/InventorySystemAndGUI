@@ -1,6 +1,5 @@
 package sample.View_Controller;
 
-import com.sun.scenario.effect.impl.prism.PrDrawable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.Model.*;
 
@@ -18,6 +16,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
+
+    // Variables for switching screens later
+    Stage stage;
+    Parent scene;
 
     // All FXML elements listed below for mainScreen.fxml
     @FXML
@@ -92,12 +94,9 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPriceColumn;
 
-    public Label modifyLabel = new Label("Modify");
-
-    public MainScreenController() {
-    }
-
     private static boolean started;
+
+    private boolean isModifyButtonClicked;
 
     public void partsSearchButtonHandler(ActionEvent actionEvent) throws IOException {
         String searchText = partsSearchField.getText();
@@ -108,7 +107,7 @@ public class MainScreenController implements Initializable {
         Stage stageAddPartOutsourcedScreen;
         Parent root;
         stageAddPartOutsourcedScreen = (Stage) partsAddButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addPart.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
         stageAddPartOutsourcedScreen.setScene(scene);
@@ -120,7 +119,7 @@ public class MainScreenController implements Initializable {
         Stage stageModifyPartScreen;
         Parent root;
         stageModifyPartScreen = (Stage) partsModifyButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyInHousePart.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("modifyPart.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
         stageModifyPartScreen.setScene(scene);
@@ -151,7 +150,7 @@ public class MainScreenController implements Initializable {
         Stage stageAddProductsOutsourcedScreen;
         Parent root;
         stageAddProductsOutsourcedScreen = (Stage) productsAddButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addPart.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
         stageAddProductsOutsourcedScreen.setScene(scene);
@@ -159,21 +158,34 @@ public class MainScreenController implements Initializable {
 
     }
 
-//    public void changeLabelTextHandler(MouseEvent mouseEvent) {
-//        OutsourcedPartController.addModifyOutsourced.setText("Modify");
-//    }
-
     // When modify button in product area on main screen is clicked, the method below handles it
     public void productsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
-        Stage stageModifyProductScreen;
-        Parent root;
-        stageModifyProductScreen = (Stage) productsModifyButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addModifyOutsourcedPart.fxml"));
-        root = loader.load();
-        Scene scene = new Scene(root);
-        stageModifyProductScreen.setScene(scene);
-        stageModifyProductScreen.show();
+        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
+
+        // Now that the scene is loaded, set the scene to the stage
+        stage.setScene(new Scene(scene));
+        stage.show();
+        /*
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("addPart.fxml"));
+        loader.load();
+
+        OutsourcedPartController MSController = loader.getController();
+        MSController.sendPart(productsTableView.getSelectionModel().getSelectedItem());
+
+
+        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+
+        // Now that the scene is loaded, set the scene to the stage
+        stage.setScene(new Scene(scene));
+        stage.show();
+         */
     }
+
 
 
     public void productsDeleteButtonHandler(ActionEvent actionEvent) {
