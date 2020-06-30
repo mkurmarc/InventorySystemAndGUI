@@ -116,7 +116,7 @@ public class addPartController implements Initializable {
     }
 
     // Method below validates outsourced parts and prints error message if not valid
-    public boolean validOutsourcedPart(String name, double price, int stock, int min, int max, String compName, String errorMessage) {
+    public static boolean validOutsourcedPart(String name, double price, int stock, int min, int max, String compName, String errorMessage) {
         if (!name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min && !compName.equals("")) {
             return true;
         }
@@ -164,7 +164,7 @@ public class addPartController implements Initializable {
         }
     }
 
-//
+
 //    public void sendPart(Product outsourced) {
 //        addPartLabel.setText(outsourced.getModifyLabelText()); // Must be string argument
 //    }

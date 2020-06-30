@@ -9,10 +9,7 @@ public class Product {
     private int id;
     private String name;
     private double price;
-
     private int stock, min, max;
-
-    private String modifyLabelText = "Modify Part";
 
     public Product(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
@@ -87,9 +84,5 @@ public class Product {
 
     public String getNameProduct() {
         return name;
-    }
-
-    public String getModifyLabelText() {
-        return modifyLabelText;
     }
 }

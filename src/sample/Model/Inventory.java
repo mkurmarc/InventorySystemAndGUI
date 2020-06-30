@@ -81,7 +81,7 @@ public class Inventory {
         return queryPartList;
     }
 
-    public void updatePart(int index, Part newPart) {
+    public static void updatePart(int index, Part newPart) {
         allParts.set(index, newPart);
     }
 

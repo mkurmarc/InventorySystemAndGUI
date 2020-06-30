@@ -1,5 +1,6 @@
 package sample.View_Controller;
 
+import javafx.beans.binding.When;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,8 @@ import sample.Model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static sample.Model.Inventory.getAllParts;
 
 public class MainScreenController implements Initializable {
 
@@ -96,7 +99,15 @@ public class MainScreenController implements Initializable {
 
     private static boolean started;
 
-    private boolean isModifyButtonClicked;
+
+
+    private static int indexModifyPart;
+    private static int indexModifyProduct;
+    private Product productToModify;
+
+    public static int getIndexModifyPart() {
+        return indexModifyPart;
+    }
 
     public void partsSearchButtonHandler(ActionEvent actionEvent) throws IOException {
         String searchText = partsSearchField.getText();
@@ -113,20 +124,6 @@ public class MainScreenController implements Initializable {
         stageAddPartOutsourcedScreen.setScene(scene);
         stageAddPartOutsourcedScreen.show();
     }
-
-
-    public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
-        Stage stageModifyPartScreen;
-        Parent root;
-        stageModifyPartScreen = (Stage) partsModifyButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("modifyPart.fxml"));
-        root = loader.load();
-        Scene scene = new Scene(root);
-        stageModifyPartScreen.setScene(scene);
-        stageModifyPartScreen.show();
-
-    }
-
 
     public void partsDeleteButtonHandler(ActionEvent actionEvent) {
         Part deletePart = partsTableView.getSelectionModel().getSelectedItem();
@@ -147,14 +144,45 @@ public class MainScreenController implements Initializable {
 
 
     public void productsAddButtonHandler(ActionEvent actionEvent) throws IOException {
-        Stage stageAddProductsOutsourcedScreen;
+        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
+        stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
+        // Now that the scene is loaded, set the scene to the stage
+        stage.setScene(new Scene(scene));
+        stage.show();
+
+    }
+
+    // When modify button in part area on main screen is clicked, the method below handles it
+    public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
+//        Part partToModify = partsTableView.getSelectionModel().getSelectedItem();
+//        indexModifyPart = getAllParts().indexOf(partToModify);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("modifyPart.fxml"));
+        loader.load();
+
+        modifyPartController MPController = loader.getController();
+        MPController.sendPart(partsTableView.getSelectionModel().getSelectedItem());
+
+        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        // Now that the scene is loaded, set the scene to the stage
+        stage.setScene(new Scene(scene));
+        stage.showAndWait();
+
+        /*
+        Stage stageModifyPartScreen;
         Parent root;
-        stageAddProductsOutsourcedScreen = (Stage) productsAddButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addPart.fxml"));
+        stageModifyPartScreen = (Stage) partsModifyButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("modifyPart.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
-        stageAddProductsOutsourcedScreen.setScene(scene);
-        stageAddProductsOutsourcedScreen.show();
+        stageModifyPartScreen.setScene(scene);
+        stageModifyPartScreen.showAndWait();
+         */
+
+
 
     }
 
@@ -219,7 +247,7 @@ public class MainScreenController implements Initializable {
         partNameColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
         partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
         partInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
-        partsTableView.setItems(Inventory.getAllParts());
+        partsTableView.setItems(getAllParts());
 
         // Products table and columns
         productIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
