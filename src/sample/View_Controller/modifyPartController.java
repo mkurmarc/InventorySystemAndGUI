@@ -9,12 +9,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.Model.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import static sample.Model.Part.*;
+import static sample.View_Controller.MainScreenController.getIndexModifyPart;
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
 
 public class modifyPartController implements Initializable {
 
@@ -61,7 +67,13 @@ public class modifyPartController implements Initializable {
     private Button cancelModifyPartButton;
 
     boolean isInHouse;
+    int indexPart = getIndexModifyPart();
+    int partID;
 
+//    public static void changeLabelField(String labelText, String fieldText) {
+//        variableModifyPartLabel.setText(labelText);
+//        variableModifyPartField.setText(fieldText);
+//    }
 
     // When in-house radio button is pushed, changes variable field and label
     @FXML
@@ -69,6 +81,7 @@ public class modifyPartController implements Initializable {
         isInHouse = true;
         variableModifyPartLabel.setText("Machine ID");
         variableModifyPartField.setText("Mach ID");
+//        changeLabelField("Machine ID", "Mach ID");
     }
 
     // When outsource radio button is pushed, changes variable field and label
@@ -77,23 +90,35 @@ public class modifyPartController implements Initializable {
         isInHouse = false;
         variableModifyPartLabel.setText("Company Name");
         variableModifyPartField.setText("Comp Name");
+//        changeLabelField("Company Name", "comp Nm");
     }
 
+/*
+    public void sendPart(Outsourced partModifyOutsourced) {
+        idModifyPartField.setText(String.valueOf(partModifyOutsourced.getIdPart()));  // Must be string argument
+        nameModifyPartField.setText(partModifyOutsourced.getNamePart());
+        inventoryModifyPartField.setText(String.valueOf(partModifyOutsourced.getStockPart()));
+        priceCostModifyField.setText(String.valueOf(partModifyOutsourced.getPricePart()));
+        minModifyPartField.setText(String.valueOf(partModifyOutsourced.getMinPart()));
+        maxModifyPartField.setText(String.valueOf(partModifyOutsourced.getMaxPart()));
+        variableModifyPartField.setText(partModifyOutsourced.getCompanyName());
 
-    public void sendPart(Part partMod) {
-        idModifyPartField.setText(String.valueOf(partMod.getIdPart()));  // Must be string argument
-        nameModifyPartField.setText(partMod.getNamePart());
-        inventoryModifyPartField.setText(String.valueOf(partMod.getStockPart()));
-        priceCostModifyField.setText(String.valueOf(partMod.getPricePart()));
-        minModifyPartField.setText(String.valueOf(partMod.getMinPart()));
-        maxModifyPartField.setText(String.valueOf(partMod.getMaxPart()));
-//        variableModifyPartField.setText(partMod.get);
     }
+
+    public void sendInHousePart(InHouse partModifyInHouse) {
+        idModifyPartField.setText(String.valueOf(partModifyInHouse.getIdPart()));  // Must be string argument
+        nameModifyPartField.setText(partModifyInHouse.getNamePart());
+        inventoryModifyPartField.setText(String.valueOf(partModifyInHouse.getStockPart()));
+        priceCostModifyField.setText(String.valueOf(partModifyInHouse.getPricePart()));
+        minModifyPartField.setText(String.valueOf(partModifyInHouse.getMinPart()));
+        maxModifyPartField.setText(String.valueOf(partModifyInHouse.getMaxPart()));
+        variableModifyPartField.setText(String.valueOf(partModifyInHouse.getMachineId()));
+    }
+ */
 
     // Method below handles the save button when clicked
     @FXML
     public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException {
-
 
         int idPart = 100;
         String name = nameModifyPartField.getText();
@@ -136,7 +161,7 @@ public class modifyPartController implements Initializable {
         if (!isInHouse) {
             String companyName = variableModifyPartField.getText();
             int partID = 100; // Need method to generate ID
-            int indexPart = MainScreenController.getIndexModifyPart();
+            int indexPart = getIndexModifyPart();
             if (addPartController.validOutsourcedPart(name, price, stock, min, max, companyName, errorMsg)) {
                 Outsourced outsourcedPart = new Outsourced(partID, name, price, stock, min, max, companyName);
                 Inventory.updatePart(indexPart, outsourcedPart);
@@ -182,6 +207,26 @@ public class modifyPartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Part modPart = Inventory.getAllParts().get(indexPart);
+        partID = Inventory.getAllParts().get(indexPart).getIdPart();
+        idModifyPartField.setText("Auto-Filled" + partID);
+        nameModifyPartField.setText(modPart.getNamePart());
+        inventoryModifyPartField.setText(String.valueOf(modPart.getStockPart())); // Must be string argument
+        priceCostModifyField.setText(String.valueOf(modPart.getPricePart()));
+        minModifyPartField.setText(String.valueOf(modPart.getMinPart()));
+        maxModifyPartField.setText(String.valueOf(modPart.getMaxPart()));
 
+        if (modPart instanceof Outsourced) {
+            variableModifyPartField.setText(((Outsourced) modPart).getCompanyName());
+            variableModifyPartLabel.setText("Company Name");
+            variableModifyPartField.setText("Comp Name");
+        }
+
+        else {
+            variableModifyPartField.setText(String.valueOf(((InHouse) modPart).getMachineId()));
+            variableModifyPartLabel.setText("Machine ID");
+            variableModifyPartField.setText("Mach ID");
+
+        }
     }
 }
