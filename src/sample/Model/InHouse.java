@@ -1,5 +1,12 @@
 package sample.Model;
 
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
+
 public class InHouse extends Part {
     private int machineId;
 
@@ -15,4 +22,6 @@ public class InHouse extends Part {
     public int getMachineId() {
         return machineId;
     }
+
+
 }

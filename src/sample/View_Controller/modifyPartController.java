@@ -67,7 +67,7 @@ public class modifyPartController implements Initializable {
     private Button cancelModifyPartButton;
 
     boolean isInHouse;
-    int indexPart = getIndexModifyPart();
+    int indexModPart = getIndexModifyPart();
     int partID;
 
 //    public static void changeLabelField(String labelText, String fieldText) {
@@ -194,8 +194,10 @@ public class modifyPartController implements Initializable {
     }
 
     // Method below validates in-house parts and prints error message if not valid
-    public boolean validInHousePart(String name, double price, int stock, int min, int max, int machineId, String errorMessage) {
-        if (name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min && machineId != 0) {
+    public boolean validInHousePart(String name, double price, int stock, int min, int max,
+                                    int machineId, String errorMessage) {
+        if (name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max &&
+                stock >= min && machineId != 0) {
             return true;
         }
         else {
@@ -207,9 +209,9 @@ public class modifyPartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Part modPart = Inventory.getAllParts().get(indexPart);
-        partID = Inventory.getAllParts().get(indexPart).getIdPart();
-        idModifyPartField.setText("Auto-Filled" + partID);
+        Part modPart = Inventory.getAllParts().get(indexModPart);
+        partID = Inventory.getAllParts().get(indexModPart).getIdPart();
+        idModifyPartField.setText(String.valueOf(partID));
         nameModifyPartField.setText(modPart.getNamePart());
         inventoryModifyPartField.setText(String.valueOf(modPart.getStockPart())); // Must be string argument
         priceCostModifyField.setText(String.valueOf(modPart.getPricePart()));
@@ -217,16 +219,21 @@ public class modifyPartController implements Initializable {
         maxModifyPartField.setText(String.valueOf(modPart.getMaxPart()));
 
         if (modPart instanceof Outsourced) {
+            // Below sets radio button
+            outsourcedModifyPart.setSelected(true);
+            // Below sets variable part field
             variableModifyPartField.setText(((Outsourced) modPart).getCompanyName());
+            // Below sets variable part label
             variableModifyPartLabel.setText("Company Name");
-            variableModifyPartField.setText("Comp Name");
         }
 
         else {
+            // Below sets radio button
+            inHouseModifyPart.setSelected(true);
+            // Below sets variable part field
             variableModifyPartField.setText(String.valueOf(((InHouse) modPart).getMachineId()));
+            // Below sets variable part label
             variableModifyPartLabel.setText("Machine ID");
-            variableModifyPartField.setText("Mach ID");
-
         }
     }
 }

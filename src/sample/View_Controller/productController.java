@@ -3,14 +3,30 @@ package sample.View_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import sample.Model.Inventory;
+import sample.Model.Part;
+import sample.Model.Product;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class productController {
+import static sample.Model.Inventory.getAllParts;
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
+
+public class productController implements Initializable {
 
     @FXML
     private Label variableProductLabel;
@@ -40,37 +56,37 @@ public class productController {
     private TextField searchProductField;
 
     @FXML
-    private TableView tableViewProduct;
+    private TableView<Product> tableViewProduct;
 
     @FXML
-    private TableColumn idProductColumn;
+    private TableColumn<Product, Integer> idProductColumn;
 
     @FXML
-    private TableColumn nameProductColumn;
+    private TableColumn<Product, String> nameProductColumn;
 
     @FXML
-    private TableColumn invProductColumn;
+    private TableColumn<Product, Integer> invProductColumn;
 
     @FXML
-    private TableColumn priceProductColumn;
+    private TableColumn<Product, Double> priceProductColumn;
 
     @FXML
     private Button addButtonProduct;
 
     @FXML
-    private TableView tableViewProduct2;
+    private TableView<Part> tableViewProduct2;
 
     @FXML
-    private TableColumn idProductColumn2;
+    private TableColumn<Part, Integer> idProductColumn2;
 
     @FXML
-    private TableColumn nameProductColumn2;
+    private TableColumn<Part, String> nameProductColumn2;
 
     @FXML
-    private TableColumn invProductColumn2;
+    private TableColumn<Part, Integer> invProductColumn2;
 
     @FXML
-    private TableColumn priceViewProduct2;
+    private TableColumn<Part, Double> priceProductColumn2;
 
     @FXML
     private Button deleteButtonProduct;
@@ -85,7 +101,6 @@ public class productController {
     Stage stage;
     Parent scene;
 
-
     public void searchButtonProductHandler(ActionEvent actionEvent) {
 
     }
@@ -95,13 +110,21 @@ public class productController {
     }
 
     public void deleteButtonProductHandler(ActionEvent actionEvent) {
+        Product deleteProduct = tableViewProduct.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(deleteProduct);
+        System.out.println("Product selected has been deleted from existence.");
 
     }
 
     public void saveButtonProductHandler(ActionEvent actionEvent) {
 
     }
+    /*
+        @AUTHOR
+        Marc Rios
+        ID: 787989
 
+     */
     public void cancelButtonProductHandler(ActionEvent actionEvent) throws IOException {
         // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
         stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
@@ -111,4 +134,28 @@ public class productController {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //Parts table and columns or tableViewProducts2
+        idProductColumn2.setCellValueFactory(new PropertyValueFactory<>("idPart"));
+        nameProductColumn2.setCellValueFactory(new PropertyValueFactory<>("namePart"));
+        priceProductColumn2.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
+        invProductColumn2.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
+        tableViewProduct2.setItems(getAllParts());
+
+        // Products table and columns or tableViewProducts1
+        idProductColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameProductColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceProductColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        invProductColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        tableViewProduct.setItems(Inventory.getAllProducts());
+    }
 }
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */

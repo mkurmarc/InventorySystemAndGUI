@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +18,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static sample.Model.Inventory.getAllParts;
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
 
 public class MainScreenController implements Initializable {
 
@@ -98,6 +106,7 @@ public class MainScreenController implements Initializable {
     private TableColumn<Product, Double> productPriceColumn;
 
     private static boolean started;
+    private static Part modPart;
 
 
 
@@ -154,36 +163,41 @@ public class MainScreenController implements Initializable {
     }
 
     // When modify button in part area on main screen is clicked, the method below handles it
-    public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
-//        Part partToModify = partsTableView.getSelectionModel().getSelectedItem();
-//        indexModifyPart = getAllParts().indexOf(partToModify);
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("modifyPart.fxml"));
-        loader.load();
+    public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException { //maybe rey changing action event to event?
 
-        modifyPartController MPController = loader.getController();
-        MPController.sendPart(partsTableView.getSelectionModel().getSelectedItem());
+        modPart = partsTableView.getSelectionModel().getSelectedItem();
+        indexModifyPart = getAllParts().indexOf(modPart);
+        Parent modParts = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
+        Scene scene = new Scene(modParts);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
 
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("modifyPart.fxml"));
+//        loader.load();
+/*
+        if((partsTableView.getSelectionModel().getSelectedItem()) instanceof InHouse) {
+
+//            modifyPartController.changeLabelField("Machine ID", "Mach ID");
+            modifyPartController MPController = loader.getController();
+            MPController.sendInHousePart((InHouse) partsTableView.getSelectionModel().getSelectedItem());
+//            MPController.sendPart(partsTableView.getSelectionModel().getSelectedItem());
+        }
+        if ((partsTableView.getSelectionModel().getSelectedItem()) instanceof Outsourced){
+//            modifyPartController.changeLabelField("Company Name", "Comp Nm");
+            modifyPartController MPController = loader.getController();
+            MPController.sendPart((Outsourced) partsTableView.getSelectionModel().getSelectedItem());
+        }
+ */
+/*
         // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
         // Now that the scene is loaded, set the scene to the stage
         stage.setScene(new Scene(scene));
         stage.showAndWait();
-
-        /*
-        Stage stageModifyPartScreen;
-        Parent root;
-        stageModifyPartScreen = (Stage) partsModifyButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("modifyPart.fxml"));
-        root = loader.load();
-        Scene scene = new Scene(root);
-        stageModifyPartScreen.setScene(scene);
-        stageModifyPartScreen.showAndWait();
-         */
-
-
-
+ */
     }
 
     // When modify button in product area on main screen is clicked, the method below handles it
@@ -224,6 +238,7 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         if(!started) {
             // Creates default parts below
             Inventory.addPart(new Outsourced(1, "Motherboard X-123", 125.25, 8,

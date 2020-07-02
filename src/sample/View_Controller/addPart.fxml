@@ -42,7 +42,7 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="idOutsourcedPartField" prefHeight="32.0" prefWidth="125.0" />
+      <TextField fx:id="idPartField" prefHeight="32.0" prefWidth="125.0"  disable="true"/>
    </HBox>
    <HBox layoutX="10.0" layoutY="110.0" prefHeight="85.0" prefWidth="200.0">
       <VBox.margin>

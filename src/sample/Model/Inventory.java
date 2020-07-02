@@ -7,6 +7,13 @@ import sample.Model.Product;
 
 import java.util.Observable;
 
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
+
 public class Inventory {
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
@@ -23,7 +30,7 @@ public class Inventory {
         allProducts.add(newProduct);
     }
 
-    public Part lookupPart(int partId) {
+    public static Part lookupPart(int partId) {
         Part checkPart = null;
         int checkPartID;
         for(int i=0; i < (allParts.size()); i++) {

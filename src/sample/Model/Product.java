@@ -4,6 +4,13 @@ import javafx.collections.ObservableList;
 
 import java.util.Collection;
 
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
+
 public class Product {
     private ObservableList<Part> associatedParts;
     private int id;

@@ -2,6 +2,13 @@ package sample.Model;
 
 import javafx.collections.ObservableList;
 
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
+
 public abstract class Part {
 
     private int idPart;
@@ -92,8 +99,7 @@ public abstract class Part {
     }
 
 
-        // Overloaded this method for Outsourced parts only
-
+        // This method for Outsourced parts only
         public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max, String compName, String errorMsg) {
             if (name.equals("")) {
                 errorMsg += ("The name field is empty. ");

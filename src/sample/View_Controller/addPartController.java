@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 
 import static sample.Model.Part.partInputErrorMessageOutsourced;
 
+
+
 public class addPartController implements Initializable {
 
     // Variables for switching screens later

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.Model.*;
 
 // @author marcrios
 
@@ -21,6 +22,7 @@ public class marcriosc482 extends Application {
 
 
     public static void main(String[] args) {
+
         launch(args);
     }
 }
