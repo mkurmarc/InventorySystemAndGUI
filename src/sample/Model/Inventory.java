@@ -23,11 +23,15 @@ public class Inventory {
     private static int productIdTally;
 
     public static void addPart(Part newPart) {
-        allParts.add(newPart);
+        if (newPart != null) {
+            allParts.add(newPart);
+        }
     }
 
     public static void addProduct(Product newProduct) {
-        allProducts.add(newProduct);
+        if (newProduct != null) {
+            allProducts.add(newProduct);
+        }
     }
 
     public static Part lookupPart(int partId) {

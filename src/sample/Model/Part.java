@@ -75,7 +75,8 @@ public abstract class Part {
         this.maxPart = maxPart;
     }
 
-    // Method is for In-House parts only
+    // Method is for In-House parts only. If the part input is not valid, this method returns the appropriate
+    // error message
     public static String partInputErrorMessageInHouse(String name, double price, int stock, int min, int max, int machineId, String errorMsg) {
         if (name.equals("")) {
             errorMsg = errorMsg + ("The name field is empty. ");
@@ -98,8 +99,8 @@ public abstract class Part {
         return errorMsg;
     }
 
-
-        // This method for Outsourced parts only
+        // This method for Outsourced parts only. If the part input is not valid, this method returns the appropriate
+        // error message
         public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max, String compName, String errorMsg) {
             if (name.equals("")) {
                 errorMsg += ("The name field is empty. ");

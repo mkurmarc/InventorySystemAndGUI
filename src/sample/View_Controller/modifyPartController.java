@@ -68,6 +68,7 @@ public class modifyPartController implements Initializable {
 
     boolean isInHouse;
     int indexModPart = getIndexModifyPart();
+    int indexModProduct = getIndexModifyPart();
     int partID;
 
 //    public static void changeLabelField(String labelText, String fieldText) {

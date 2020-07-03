@@ -102,7 +102,8 @@ public class productController implements Initializable {
     Parent scene;
 
     public void searchButtonProductHandler(ActionEvent actionEvent) {
-
+        String searchText = searchProductField.getText();
+        tableViewProduct.setItems(Inventory.lookupProduct(searchText));
     }
 
     public void addButtonProductHandler(ActionEvent actionEvent) {
@@ -119,12 +120,14 @@ public class productController implements Initializable {
     public void saveButtonProductHandler(ActionEvent actionEvent) {
 
     }
+
     /*
         @AUTHOR
         Marc Rios
         ID: 787989
 
      */
+
     public void cancelButtonProductHandler(ActionEvent actionEvent) throws IOException {
         // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
         stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
@@ -137,14 +140,14 @@ public class productController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Parts table and columns or tableViewProducts2
+        //Parts table and columns or tableViewProducts2 set for modify/add product scene
         idProductColumn2.setCellValueFactory(new PropertyValueFactory<>("idPart"));
         nameProductColumn2.setCellValueFactory(new PropertyValueFactory<>("namePart"));
         priceProductColumn2.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
         invProductColumn2.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
         tableViewProduct2.setItems(getAllParts());
 
-        // Products table and columns or tableViewProducts1
+        // Products table and columns or tableViewProducts1 for modify/add product scene
         idProductColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameProductColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceProductColumn.setCellValueFactory(new PropertyValueFactory<>("price"));

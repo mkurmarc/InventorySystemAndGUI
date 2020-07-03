@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static sample.Model.Inventory.getAllParts;
+import static sample.Model.Inventory.getAllProducts;
 
 /*
     @AUTHOR
@@ -105,11 +106,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPriceColumn;
 
-    private static boolean started;
     private static Part modPart;
-
-
-
     private static int indexModifyPart;
     private static int indexModifyProduct;
     private Product productToModify;
@@ -118,6 +115,11 @@ public class MainScreenController implements Initializable {
         return indexModifyPart;
     }
 
+    public static int getIndexModifyProduct() {
+        return indexModifyProduct;
+    }
+
+    //  This handles the search button on the "part" side of the main screen.
     public void partsSearchButtonHandler(ActionEvent actionEvent) throws IOException {
         String searchText = partsSearchField.getText();
         partsTableView.setItems(Inventory.lookupPart(searchText));
@@ -200,8 +202,34 @@ public class MainScreenController implements Initializable {
  */
     }
 
+    /*
+
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+    */
+
     // When modify button in product area on main screen is clicked, the method below handles it
     public void productsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
+        productToModify = productsTableView.getSelectionModel().getSelectedItem();
+        indexModifyProduct = getAllProducts().indexOf(productToModify);
+        Parent modProducts = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
+        Scene scene = new Scene(modProducts);
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+
+//        modPart = partsTableView.getSelectionModel().getSelectedItem();
+//        indexModifyProduct = getAllParts().indexOf(modPart);
+//        Parent modParts = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
+//        Scene scene = new Scene(modParts);
+//        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//        window.setScene(scene);
+//        window.show();
+
+
+        /*
         // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
@@ -209,6 +237,8 @@ public class MainScreenController implements Initializable {
         // Now that the scene is loaded, set the scene to the stage
         stage.setScene(new Scene(scene));
         stage.show();
+
+         */
         /*
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("addPart.fxml"));
@@ -238,9 +268,8 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        if(!started) {
-            // Creates default parts below
+      /*   if(!started) {
+           // Creates default parts below
             Inventory.addPart(new Outsourced(1, "Motherboard X-123", 125.25, 8,
                     1, 500, "Grandpa Apple"));
             Inventory.addPart(new Outsourced(2, "Central Processing Unit 1500", 223.55, 19,
@@ -257,6 +286,7 @@ public class MainScreenController implements Initializable {
 
             started = true;
         }
+       */
         //Parts table and columns
         partIDColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
         partNameColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
@@ -273,3 +303,10 @@ public class MainScreenController implements Initializable {
 
     }
 }
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
