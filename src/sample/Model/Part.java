@@ -25,7 +25,7 @@ public abstract class Part {
     }
 
     // Method below sets part ID and increments it one afterwards
-    private void setPartID() {
+    public void setPartID() {
         idPart++;
     }
 
@@ -85,10 +85,10 @@ public abstract class Part {
             errorMsg = errorMsg + ("The name field is empty. ");
         }
         if (price == 0) {
-            errorMsg = errorMsg + ("The price must be more than 0. ");
+            errorMsg = errorMsg + ("The price must be more than 0. Example: 12.74 ");
         }
         if (stock < 1) {
-            errorMsg = errorMsg + ("The inventory must be more than 0. ");
+            errorMsg = errorMsg + ("The stock must greater than 0. ");
         }
         if (min > max) {
             errorMsg = errorMsg + ("The minimum must be less than the maximum. ");
@@ -104,7 +104,8 @@ public abstract class Part {
 
         // This method for Outsourced parts only. If the part input is not valid, this method returns the appropriate
         // error message
-        public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max, String compName, String errorMsg) {
+        public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max,
+                                                              String compName, String errorMsg) {
             if (name.equals("")) {
                 errorMsg += ("The name field is empty. ");
             }

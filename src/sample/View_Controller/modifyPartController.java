@@ -108,7 +108,7 @@ public class modifyPartController implements Initializable {
     // When outsource radio button is pushed, changes variable field and label. The previously saved field data
     // is preserved even when radio button is switched.
     @FXML
-    public void inhouseModifyRadioButtonHandler(ActionEvent actionEvent) {
+    public void inHouseModifyRadioButtonHandler(ActionEvent actionEvent) {
         isInHouse = true;
         variableModifyPartLabel.setText("Machine ID");
         variableModifyPartField.getText();
@@ -149,27 +149,22 @@ public class modifyPartController implements Initializable {
     // Method below handles the save button when clicked
     @FXML
     public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException, NumberFormatException {
-
         try {
-            int idPart = 100;
+            int idPart = getIndexModifyPart();
             String name = nameModifyPartField.getText();
             double price = Double.parseDouble(priceCostModifyField.getText());
             int stock = Integer.parseInt(inventoryModifyPartField.getText());
             int min = Integer.parseInt(minModifyPartField.getText());
             int max = Integer.parseInt(maxModifyPartField.getText());
-            String errorMsg = "";
             int indexPart = getIndexModifyPart();
         /*
           This if statement checks if the part is in house, and if it is, it will create an in house part and update
           the inventory
         */
             if (isInHouse) {
-                // need method to create ID #s and check against the observable list
                 int machineId = Integer.parseInt(variableModifyPartField.getText());
-                if (validInHousePart(name, price, stock, min, max, machineId, errorMsg)) {
-                    InHouse inHousePart = new InHouse(idPart, name, price, stock, min, max, machineId);
-                    Inventory.updatePart(indexPart, inHousePart);
-                }
+                InHouse inHousePart = new InHouse(idPart, name, price, stock, min, max, machineId);
+                Inventory.updatePart(indexPart, inHousePart);
             }
         /*
          This if statement checks if the part is in house, and if it is, it will create an outsourced part and update
@@ -177,11 +172,8 @@ public class modifyPartController implements Initializable {
         */
             if (!isInHouse) {
                 String companyName = variableModifyPartField.getText();
-                if (addPartController.validOutsourcedPart(name, price, stock, min, max, companyName, errorMsg)) {
-                    Outsourced outsourcedPart = new Outsourced(idPart, name, price, stock, min, max, companyName);
-                    Inventory.updatePart(indexPart, outsourcedPart);
-                }
-
+                Outsourced outsourcedPart = new Outsourced(idPart, name, price, stock, min, max, companyName);
+                Inventory.updatePart(indexPart, outsourcedPart);
             }
             // Exit to main screen below
             Stage stageMainScreen;
@@ -196,15 +188,9 @@ public class modifyPartController implements Initializable {
         catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialogue Box");
-            alert.setContentText("Please enter a whole number in the stock text box. ");
+            alert.setContentText("Please enter the correct formats for each text field.");
             alert.showAndWait();
-/*
-            System.out.println("OHNO!");
-            System.out.println("Exception:" + e);
-            System.out.println("Exception:" + e.getMessage());
-*/
         }
-
     }
 
     // Method below handles the cancel button when clicked
@@ -228,19 +214,16 @@ public class modifyPartController implements Initializable {
             stageMainScreen.setScene(scene);
             stageMainScreen.show();
         }
-
     }
 
     // Method below validates in-house parts and prints error message if not valid
     public boolean validInHousePart(String name, double price, int stock, int min, int max,
-                                    int machineId, String errorMessage) {
+                                    int machineId, String errorMsg) {
         if (name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max &&
                 stock >= min && machineId != 0) {
             return true;
         }
-        else {
-            errorMessage = partInputErrorMessageInHouse(name, price, stock, min, max, machineId, errorMessage);
-            System.out.println(errorMessage);
+        else{
             return false;
         }
     }

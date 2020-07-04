@@ -5,6 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<!--        @AUTHOR-->
+<!--        Marc Rios-->
+<!--        ID: 787989-->
+
 <SplitPane dividerPositions="0.3673012318029115" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
            minWidth="-Infinity" prefHeight="523.0" prefWidth="929.0"
            style="-fx-background-color: E0E0E0; -fx-border-style: solid; -fx-border-insets: 15; -fx-border-color: GRAY; -fx-border-width: 2;"

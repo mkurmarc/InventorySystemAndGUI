@@ -16,7 +16,7 @@
                 <Font name="Arial Bold" size="18.0" />
             </font>
         </Label>
-        <RadioButton fx:id="inHouseModifyPart" mnemonicParsing="false" onAction="#inhouseModifyRadioButtonHandler"
+        <RadioButton fx:id="inHouseModifyPart" mnemonicParsing="false" onAction="#inHouseModifyRadioButtonHandler"
                      selected="true" text="In-House">
             <HBox.margin>
                 <Insets left="15.0" right="10.0" top="20.0" />

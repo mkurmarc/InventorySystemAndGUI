@@ -16,7 +16,7 @@ public class InHouse extends Part {
         setMachineId(machineId);
     }
 
-    // Method below validates in house parts and prints error message if not valid
+    // Method below validates inHouse parts and prints error message if not valid
     public static boolean validInHousePart(String name, double price, int stock, int min, int max, int machID,
                                               String errorMessage) {
         if (!name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min

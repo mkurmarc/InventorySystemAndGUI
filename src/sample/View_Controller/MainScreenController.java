@@ -139,8 +139,22 @@ public class MainScreenController implements Initializable {
 
     public void partsDeleteButtonHandler(ActionEvent actionEvent) {
         Part deletePart = partsTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(deletePart);
-        System.out.println("Part selected has been deleted from existence.");
+        if(deletePart != null) {
+            // Created an alert when no part is selected for deletion
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete part from database." +
+                    "Do you want to continue?");
+            // Use result variable to get information on the buttons, like if one was pushed
+            Optional<ButtonType> result = alert.showAndWait();
+            // This IF statement checks if button was clicked and if it was OK
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deletePart(deletePart);
+            }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the table above.");
+            alert.setTitle("Error Dialogue Box");
+            alert.showAndWait();
+        }
     }
 
 
@@ -175,15 +189,20 @@ public class MainScreenController implements Initializable {
     }
 
     // When modify button in part area on main screen is clicked, the method below handles it
-    public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException { //maybe rey changing action event to event?
-
+    public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
         modPart = partsTableView.getSelectionModel().getSelectedItem();
-        indexModifyPart = getAllParts().indexOf(modPart);
-        Parent modParts = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
-        Scene scene = new Scene(modParts);
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        if (modPart != null) {
+            indexModifyPart = getAllParts().indexOf(modPart);
+            Parent modParts = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
+            Scene scene = new Scene(modParts);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one product from the table above.");
+            alert.setTitle("Error Dialogue Box");
+            alert.showAndWait();
+        }
 
 //        FXMLLoader loader = new FXMLLoader();
 //        loader.setLocation(getClass().getResource("modifyPart.fxml"));
@@ -272,8 +291,22 @@ public class MainScreenController implements Initializable {
 
     public void productsDeleteButtonHandler(ActionEvent actionEvent) {
         Product deleteProduct = productsTableView.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(deleteProduct);
-        System.out.println("Product selected has been deleted from existence.");
+        if(deleteProduct != null) {
+            // Created an alert when no product is selected for deletion
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete product from database." +
+                    "Do you want to continue?");
+            // Use result variable to get information on the buttons, like if one was pushed
+            Optional<ButtonType> result = alert.showAndWait();
+            // This IF statement checks if button was clicked and if it was OK
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deleteProduct(deleteProduct);
+            }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the product table.");
+            alert.setTitle("Error Dialogue Box");
+            alert.showAndWait();
+        }
     }
 
     @Override

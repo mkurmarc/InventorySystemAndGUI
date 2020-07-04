@@ -19,8 +19,6 @@ public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
-    private static int partIdTally;
-    private static int productIdTally;
 
     public static void addPart(Part newPart) {
         if (newPart != null) {
@@ -34,17 +32,19 @@ public class Inventory {
         }
     }
 
-    public static Part lookupPart(int partId ) {
+    public static Part lookupPart(int partId) {
+//        boolean isFound = false;
         Part checkPart = null;
         int checkPartID;
         for(int i=0; i < (allParts.size()); i++) {
             checkPart = allParts.get(i);
             checkPartID = checkPart.getIdPart();
             if(checkPartID == partId) {
+//                isFound = true;
                 break;
             }
         }
-        return checkPart;
+            return checkPart;
     }
 
     public Product lookupProduct(int productId) {
