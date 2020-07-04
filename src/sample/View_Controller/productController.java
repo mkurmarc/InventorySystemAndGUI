@@ -123,7 +123,7 @@ public class productController implements Initializable {
          Sets bottom table view and columns with associated parts linked to the product available in the
          observable array list for add and modify product scene
         */
-        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("Product.id"));
         nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -137,6 +137,9 @@ public class productController implements Initializable {
 
     public void addButtonProductHandler(ActionEvent actionEvent) {
         partAddToAssociated = allPartsTableView.getSelectionModel().getSelectedItem();
+        Product.addAssociatedPart(partAddToAssociated);
+        tableViewAssocParts.setItems(Product.getAllAssociatedParts());
+/*
         boolean duplicateItem = false;
 
         if (partAddToAssociated == null) {
@@ -152,14 +155,15 @@ public class productController implements Initializable {
             if (!duplicateItem) {
                 Product.getAllAssociatedParts().add(partAddToAssociated);
             }
-            tableViewAssocParts.setItems(partsForAssociatedList);
+            tableViewAssocParts.setItems(Product.getAllAssociatedParts());
         }
-//        else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the table above" +
-//                    " to add to the associated part list.");
-//            alert.setTitle("Error Dialogue Box");
-//            alert.showAndWait();
-//        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the table above" +
+                    " to add to the associated part list.");
+            alert.setTitle("Error Dialogue Box");
+            alert.showAndWait();
+        }
+*/
     }
 
     public void deleteAssocPartButtonHandler(ActionEvent actionEvent) {
