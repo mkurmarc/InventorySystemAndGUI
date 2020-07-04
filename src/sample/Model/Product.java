@@ -12,7 +12,7 @@ import java.util.Collection;
  */
 
 public class Product {
-    private ObservableList<Part> associatedParts;
+    private static ObservableList<Part> associatedParts;
     private int id;
     private String name;
     private double price;
@@ -25,6 +25,31 @@ public class Product {
         this.stock = stock;
         this.min = min;
         this.max = max;
+    }
+
+
+    public static void addAssociatedPart(Part part) {
+        if (part != null) {
+            associatedParts.add(part);
+        }
+    }
+
+    public static boolean deleteAssociatedPart(Part selectedAssociatedPart) {
+        if(getAllAssociatedParts().contains(selectedAssociatedPart)) {
+            associatedParts.remove(selectedAssociatedPart);
+            return true;
+        }
+        else  {
+            return false;
+        }
+    }
+
+    public static ObservableList<Part> getAllAssociatedParts() {
+        return associatedParts;
+    }
+
+    public String getNameProduct() {
+        return name;
     }
 
     public void setId(int id) {
@@ -73,23 +98,5 @@ public class Product {
 
     public int getMax() {
         return this.max;
-    }
-
-    public void addAssociatedPart(Part part) {
-        associatedParts.add(part);
-    }
-
-    public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
-        associatedParts.remove(selectedAssociatedPart);
-        return associatedParts.contains(selectedAssociatedPart);
-   
-    }
-
-    public ObservableList<Part> getAllAssociatedParts() {
-        return associatedParts;
-    }
-
-    public String getNameProduct() {
-        return name;
     }
 }

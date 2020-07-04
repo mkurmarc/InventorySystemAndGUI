@@ -1,5 +1,7 @@
 package sample.View_Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,8 @@ import static sample.Model.Inventory.getAllParts;
 
 public class productController implements Initializable {
 
+    private ObservableList<Part> partsForAssociatedList = FXCollections.observableArrayList();
+
     @FXML
     private Label variableProductLabel;
 
@@ -57,37 +61,37 @@ public class productController implements Initializable {
     private TextField searchProductField;
 
     @FXML
-    private TableView<Product> tableViewProduct;
+    private TableView<Part> tableViewAssocParts;
 
     @FXML
-    private TableColumn<Product, Integer> idProductColumn;
+    private TableColumn<Part, Integer> idAssocPartColumn;
 
     @FXML
-    private TableColumn<Product, String> nameProductColumn;
+    private TableColumn<Part, String> nameAssocPartColumn;
 
     @FXML
-    private TableColumn<Product, Integer> invProductColumn;
+    private TableColumn<Part, Integer> invAssocPartColumn;
 
     @FXML
-    private TableColumn<Product, Double> priceProductColumn;
+    private TableColumn<Product, Double> priceAssocPartColumn;
 
     @FXML
     private Button addButtonProduct;
 
     @FXML
-    private TableView<Part> tableViewProduct2;
+    private TableView<Part> tableViewAllParts;
 
     @FXML
-    private TableColumn<Part, Integer> idProductColumn2;
+    private TableColumn<Part, Integer> idAllPartsColumn;
 
     @FXML
-    private TableColumn<Part, String> nameProductColumn2;
+    private TableColumn<Part, String> nameAllPartsColumn;
 
     @FXML
-    private TableColumn<Part, Integer> invProductColumn2;
+    private TableColumn<Part, Integer> invAllPartsColumn;
 
     @FXML
-    private TableColumn<Part, Double> priceProductColumn2;
+    private TableColumn<Part, Double> priceAllPartsColumn;
 
     @FXML
     private Button deleteButtonProduct;
@@ -102,18 +106,64 @@ public class productController implements Initializable {
     Stage stage;
     Parent scene;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        /*
+         Sets top table view and columns with all the parts available in the observable array list for add and
+         modify product scene
+        */
+        idAllPartsColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
+        nameAllPartsColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
+        priceAllPartsColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
+        invAllPartsColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
+        tableViewAllParts.setItems(getAllParts());
+
+        /*
+         Sets bottom table view and columns with associated parts linked to the product available in the
+         observable array list for add and modify product scene
+        */
+        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
+        nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
+        priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
+        invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
+        tableViewAssocParts.setItems(Product.getAllAssociatedParts());
+    }
+
     public void searchButtonProductHandler(ActionEvent actionEvent) {
         String searchText = searchProductField.getText();
-        tableViewProduct.setItems(Inventory.lookupProduct(searchText));
+        tableViewAllParts.setItems(Inventory.lookupPart(searchText));
     }
 
     public void addButtonProductHandler(ActionEvent actionEvent) {
+        Part partAddToAssociated = tableViewAllParts.getSelectionModel().getSelectedItem();
+        boolean duplicateItem = false;
 
+        if (partAddToAssociated == null) {
+            return;
+        } else {
+            int id = partAddToAssociated.getIdPart();
+            Product.addAssociatedPart(partAddToAssociated);
+            for (int i = 0; i < Product.getAllAssociatedParts().size(); i++) {
+                if (Product.getAllAssociatedParts().get(i).getIdPart() == id) {
+                    duplicateItem = true;
+                }
+            }
+            if (!duplicateItem) {
+                Product.getAllAssociatedParts().add(partAddToAssociated);
+            }
+            tableViewAssocParts.setItems(partsForAssociatedList);
+        }
+//        else {
+//            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the table above" +
+//                    " to add to the associated part list.");
+//            alert.setTitle("Error Dialogue Box");
+//            alert.showAndWait();
+//        }
     }
 
-    public void deleteButtonProductHandler(ActionEvent actionEvent) {
-        Product deleteProduct = tableViewProduct.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(deleteProduct);
+    public void deleteAssocPartButtonHandler(ActionEvent actionEvent) {
+        Part deletePart = tableViewAssocParts.getSelectionModel().getSelectedItem();
+        Product.deleteAssociatedPart(deletePart);
         System.out.println("Product selected has been deleted from existence.");
 
     }
@@ -148,23 +198,6 @@ public class productController implements Initializable {
             stageMainScreen.setScene(scene);
             stageMainScreen.show();
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //Parts table and columns or tableViewProducts2 set for modify/add product scene
-        idProductColumn2.setCellValueFactory(new PropertyValueFactory<>("idPart"));
-        nameProductColumn2.setCellValueFactory(new PropertyValueFactory<>("namePart"));
-        priceProductColumn2.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
-        invProductColumn2.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
-        tableViewProduct2.setItems(getAllParts());
-
-        // Products table and columns or tableViewProducts1 for modify/add product scene
-        idProductColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameProductColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceProductColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        invProductColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        tableViewProduct.setItems(Inventory.getAllProducts());
     }
 }
 

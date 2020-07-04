@@ -2,10 +2,13 @@ package sample.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
 import sample.Model.Part;
 import sample.Model.Product;
 
+import java.net.URL;
 import java.util.Observable;
+import java.util.ResourceBundle;
 
 /*
     @AUTHOR
@@ -14,11 +17,15 @@ import java.util.Observable;
 
  */
 
-public class Inventory {
+public class Inventory implements Initializable {
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     public static void addPart(Part newPart) {
         if (newPart != null) {
@@ -125,5 +132,4 @@ public class Inventory {
     public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
-
 }

@@ -114,6 +114,7 @@ public class addPartController implements Initializable {
     // Saves data when save button is clicked
     @FXML
     public void saveButtonActionHandler(ActionEvent actionEvent) throws IOException {
+
         try
         {
             // need method to create ID #s and check against the observable list
@@ -126,12 +127,14 @@ public class addPartController implements Initializable {
             String variableValue = variableField.getText();
             String errorMsg = "";
 
-            if (validOutsourcedPart(name, price, stock, min, max, variableValue, errorMsg)) {
+            // need to add another condition to check if part is valid
+            if (!isInHouse) { //validOutsourcedPart(name, price, stock, min, max, variableValue, errorMsg) &&
                 // Below save data from fields to respective database if the part data entered is valid
                 Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, variableValue);
                 Inventory.addPart(newPart);
             }
-            if (InHouse.validInHousePart(name, price, stock, min, max, Integer.parseInt(variableValue), errorMsg)) {
+            // need to add another condition to check if part is valid
+            if (isInHouse) { // InHouse.validInHousePart(name, price, stock, min, max, Integer.parseInt(variableValue), errorMsg) &&
                 // Below save data from fields to respective database if the part data entered is valid
                 InHouse newPart = new InHouse(idPart, name, price, stock, min, max, Integer.parseInt(variableValue));
                 Inventory.addPart(newPart);

@@ -149,7 +149,8 @@ public class modifyPartController implements Initializable {
     // Method below handles the save button when clicked
     @FXML
     public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException, NumberFormatException {
-        try {
+        try
+        {
             int idPart = getIndexModifyPart();
             String name = nameModifyPartField.getText();
             double price = Double.parseDouble(priceCostModifyField.getText());
@@ -175,7 +176,7 @@ public class modifyPartController implements Initializable {
                 Outsourced outsourcedPart = new Outsourced(idPart, name, price, stock, min, max, companyName);
                 Inventory.updatePart(indexPart, outsourcedPart);
             }
-            // Exit to main screen below
+            // Exit to main screen - code block below
             Stage stageMainScreen;
             Parent root;
             stageMainScreen = (Stage) saveModifyPartButton.getScene().getWindow();
@@ -185,7 +186,8 @@ public class modifyPartController implements Initializable {
             stageMainScreen.setScene(scene);
             stageMainScreen.show();
         }
-        catch (NumberFormatException e) {
+        catch (NumberFormatException e)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialogue Box");
             alert.setContentText("Please enter the correct formats for each text field.");
@@ -197,7 +199,7 @@ public class modifyPartController implements Initializable {
     @FXML
     public void cancelButtonHandler(ActionEvent actionEvent) throws IOException {
         // Created an alert when the cancel button is clicked to prevent accidental information loss
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will clear all text field values. " +
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Changes will not be saved. " +
                 "Do you want to continue?");
         // Use result variable to get information on the buttons, like if one was pushed
         Optional<ButtonType> result = alert.showAndWait();

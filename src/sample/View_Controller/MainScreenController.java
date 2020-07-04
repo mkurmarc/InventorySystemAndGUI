@@ -112,6 +112,23 @@ public class MainScreenController implements Initializable {
     private static int indexModifyProduct;
     private Product productToModify;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //Parts table and columns
+        partIDColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
+        partNameColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
+        partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
+        partInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
+        partsTableView.setItems(getAllParts());
+
+        // Products table and columns
+        productIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        productInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productsTableView.setItems(Inventory.getAllProducts());
+    }
+
     public static int getIndexModifyPart() {
         return indexModifyPart;
     }
@@ -137,6 +154,7 @@ public class MainScreenController implements Initializable {
         stageAddPartOutsourcedScreen.show();
     }
 
+    @FXML
     public void partsDeleteButtonHandler(ActionEvent actionEvent) {
         Part deletePart = partsTableView.getSelectionModel().getSelectedItem();
         if(deletePart != null) {
@@ -157,7 +175,7 @@ public class MainScreenController implements Initializable {
         }
     }
 
-
+    @FXML
     public void exitButtonHandler(ActionEvent actionEvent) throws IOException {
         // Created an alert when the cancel button is clicked confirm exit of application
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to close the application?");
@@ -171,24 +189,15 @@ public class MainScreenController implements Initializable {
         }
     }
 
-
+    @FXML
     public void productsSearchButtonHandler(ActionEvent actionEvent) {
         String searchText = productsSearchField.getText();
         productsTableView.setItems(Inventory.lookupProduct(searchText));
     }
 
 
-    public void productsAddButtonHandler(ActionEvent actionEvent) throws IOException {
-        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
-        stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
-        // Now that the scene is loaded, set the scene to the stage
-        stage.setScene(new Scene(scene));
-        stage.show();
-
-    }
-
     // When modify button in part area on main screen is clicked, the method below handles it
+    @FXML
     public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
         modPart = partsTableView.getSelectionModel().getSelectedItem();
         if (modPart != null) {
@@ -239,7 +248,19 @@ public class MainScreenController implements Initializable {
 
     */
 
+    @FXML
+    public void productsAddButtonHandler(ActionEvent actionEvent) throws IOException {
+        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
+        stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
+        // Now that the scene is loaded, set the scene to the stage
+        stage.setScene(new Scene(scene));
+        stage.show();
+
+    }
+
     // When modify button in product area on main screen is clicked, the method below handles it
+    @FXML
     public void productsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
         productToModify = productsTableView.getSelectionModel().getSelectedItem();
         indexModifyProduct = getAllProducts().indexOf(productToModify);
@@ -288,7 +309,7 @@ public class MainScreenController implements Initializable {
     }
 
 
-
+    @FXML
     public void productsDeleteButtonHandler(ActionEvent actionEvent) {
         Product deleteProduct = productsTableView.getSelectionModel().getSelectedItem();
         if(deleteProduct != null) {
@@ -307,43 +328,6 @@ public class MainScreenController implements Initializable {
             alert.setTitle("Error Dialogue Box");
             alert.showAndWait();
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-      /*   if(!started) {
-           // Creates default parts below
-            Inventory.addPart(new Outsourced(1, "Motherboard X-123", 125.25, 8,
-                    1, 500, "Grandpa Apple"));
-            Inventory.addPart(new Outsourced(2, "Central Processing Unit 1500", 223.55, 19,
-                    1, 500, "Samyoung"));
-            Inventory.addPart(new InHouse(3, "Solid State Drive SSD-120", 198.56, 30,
-                    1, 500, 12556));
-            Inventory.addPart(new InHouse(4, "Hard Disk Drive HDD-1TB", 86.33, 55,
-                    1, 500, 15697));
-
-            // Creates default products below
-            Inventory.addProduct(new Product(1000, "Grandpa CamBook Apple 15 inch", 1556.99, 6, 1, 500));
-            Inventory.addProduct(new Product(1015, "Samyoung Black Hole Smart Phone", 805.69, 12, 1, 500));
-            Inventory.addProduct(new Product(1015, "Bell Enspiron Notebook 17 inch", 1159.44, 15, 1, 500));
-
-            started = true;
-        }
-       */
-        //Parts table and columns
-        partIDColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
-        partNameColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
-        partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
-        partInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
-        partsTableView.setItems(getAllParts());
-
-        // Products table and columns
-        productIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        productInventoryColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        productsTableView.setItems(Inventory.getAllProducts());
-
     }
 }
 

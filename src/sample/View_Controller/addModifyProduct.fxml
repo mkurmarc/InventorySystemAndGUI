@@ -131,12 +131,12 @@
                      </HBox.margin></TextField>
                </children>
             </HBox>
-            <TableView fx:id="tableViewProduct" prefHeight="174.0" prefWidth="502.0">
+            <TableView fx:id="tableViewAllParts" prefHeight="174.0" prefWidth="502.0">
               <columns>
-                <TableColumn fx:id="idProductColumn" prefWidth="116.0" text="Part ID" />
-                <TableColumn fx:id="nameProductColumn" prefWidth="115.0" text="Part Name" />
-                  <TableColumn fx:id="invProductColumn" prefWidth="143.0" text="Inventory Level" />
-                  <TableColumn fx:id="priceProductColumn" prefWidth="127.0" text="Price Per Unit" />
+                <TableColumn fx:id="idAllPartsColumn" prefWidth="116.0" text="Part ID" />
+                <TableColumn fx:id="nameAllPartsColumn" prefWidth="115.0" text="Part Name" />
+                  <TableColumn fx:id="invAllPartsColumn" prefWidth="143.0" text="Inventory Level" />
+                  <TableColumn fx:id="priceAllPartsColumn" prefWidth="127.0" text="Price Per Unit" />
               </columns>
                <VBox.margin>
                   <Insets bottom="7.0" left="10.0" right="50.0" />
@@ -148,19 +148,19 @@
                   <Insets bottom="25.0" left="400.0" right="40.0" />
                </VBox.margin>
             </Button>
-            <TableView fx:id="tableViewProduct2" prefHeight="174.0" prefWidth="502.0">
+            <TableView fx:id="tableViewAssocParts" prefHeight="174.0" prefWidth="502.0">
               <columns>
-                <TableColumn fx:id="idProductColumn2" prefWidth="109.0" text="Part ID" />
-                <TableColumn fx:id="nameProductColumn2" prefWidth="120.0" text="Part Name" />
-                  <TableColumn fx:id="invProductColumn2" prefWidth="144.0" text="Inventory Level" />
-                  <TableColumn fx:id="priceProductColumn2" prefWidth="128.0" text="Price Per Unit" />
+                <TableColumn fx:id="idAssocPartColumn" prefWidth="109.0" text="Part ID" />
+                <TableColumn fx:id="nameAssocPartColumn" prefWidth="120.0" text="Part Name" />
+                  <TableColumn fx:id="invAssocPartColumn" prefWidth="144.0" text="Inventory Level" />
+                  <TableColumn fx:id="priceAssocPartColumn" prefWidth="128.0" text="Price Per Unit" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="50.0" />
                </VBox.margin>
             </TableView>
             <Button fx:id="deleteButtonProduct" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteButtonProductHandler" prefHeight="27.0"
+                    minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteAssocPartButtonHandler" prefHeight="27.0"
                     prefWidth="73.0" text="Delete">
                <VBox.margin>
                   <Insets bottom="10.0" left="400.0" />
