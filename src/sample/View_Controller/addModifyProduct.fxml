@@ -131,7 +131,7 @@
                      </HBox.margin></TextField>
                </children>
             </HBox>
-            <TableView fx:id="tableViewAllParts" prefHeight="174.0" prefWidth="502.0">
+            <TableView fx:id="allPartsTableView" prefHeight="174.0" prefWidth="502.0">
               <columns>
                 <TableColumn fx:id="idAllPartsColumn" prefWidth="116.0" text="Part ID" />
                 <TableColumn fx:id="nameAllPartsColumn" prefWidth="115.0" text="Part Name" />
