@@ -73,13 +73,13 @@ public class productController implements Initializable {
     private TableColumn<Part, Integer> invAssocPartColumn;
 
     @FXML
-    private TableColumn<Product, Double> priceAssocPartColumn;
+    private TableColumn<Part, Double> priceAssocPartColumn;
 
     @FXML
     private Button addButtonProduct;
 
     @FXML
-    private TableView<Part> tableViewAllParts;
+    private TableView<Part> allPartsTableView;
 
     @FXML
     private TableColumn<Part, Integer> idAllPartsColumn;
@@ -105,6 +105,7 @@ public class productController implements Initializable {
     // Variables for switching screens later
     Stage stage;
     Parent scene;
+    private Part partAddToAssociated;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -116,26 +117,26 @@ public class productController implements Initializable {
         nameAllPartsColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
         priceAllPartsColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
         invAllPartsColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
-        tableViewAllParts.setItems(getAllParts());
+        allPartsTableView.setItems(getAllParts());
 
         /*
          Sets bottom table view and columns with associated parts linked to the product available in the
          observable array list for add and modify product scene
         */
-        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
-        nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
-        priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
-        invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
+        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         tableViewAssocParts.setItems(Product.getAllAssociatedParts());
     }
 
     public void searchButtonProductHandler(ActionEvent actionEvent) {
         String searchText = searchProductField.getText();
-        tableViewAllParts.setItems(Inventory.lookupPart(searchText));
+        allPartsTableView.setItems(Inventory.lookupPart(searchText));
     }
 
     public void addButtonProductHandler(ActionEvent actionEvent) {
-        Part partAddToAssociated = tableViewAllParts.getSelectionModel().getSelectedItem();
+        partAddToAssociated = allPartsTableView.getSelectionModel().getSelectedItem();
         boolean duplicateItem = false;
 
         if (partAddToAssociated == null) {

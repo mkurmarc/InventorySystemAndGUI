@@ -114,7 +114,6 @@ public class addPartController implements Initializable {
     // Saves data when save button is clicked
     @FXML
     public void saveButtonActionHandler(ActionEvent actionEvent) throws IOException {
-
         try
         {
             // need method to create ID #s and check against the observable list
