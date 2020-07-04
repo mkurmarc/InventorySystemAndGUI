@@ -159,7 +159,7 @@
             </HBox.margin>
         </Button>
         <Button fx:id="cancelModifyPartButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelButtonInHouseHandler"
+                minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelButtonHandler"
                 prefHeight="27.0" prefWidth="73.0" text="Cancel">
             <HBox.margin>
                 <Insets left="20.0" right="20.0" />

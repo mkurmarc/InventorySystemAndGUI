@@ -1,7 +1,5 @@
 package sample.Model;
 
-import javafx.collections.ObservableList;
-
 /*
     @AUTHOR
     Marc Rios
@@ -24,6 +22,11 @@ public abstract class Part {
         this.stockPart = stockPart;
         this.minPart = minPart;
         this.maxPart = maxPart;
+    }
+
+    // Method below sets part ID and increments it one afterwards
+    private void setPartID() {
+        idPart++;
     }
 
     // Setters and Getters

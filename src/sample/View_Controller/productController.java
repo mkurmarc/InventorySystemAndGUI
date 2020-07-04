@@ -15,6 +15,7 @@ import sample.Model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static sample.Model.Inventory.getAllParts;
@@ -129,13 +130,24 @@ public class productController implements Initializable {
      */
 
     public void cancelButtonProductHandler(ActionEvent actionEvent) throws IOException {
-        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
-        stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
+        // Created a confirmation alert when the cancel button is clicked to prevent accidental information loss.
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will clear all text field values. " +
+                "Do you want to continue?");
+        // Use result variable to get information on the buttons, like if one was pushed
+        Optional<ButtonType> result = alert.showAndWait();
 
-        // Now that the scene is loaded, set the scene to the stage
-        stage.setScene(new Scene(scene));
-        stage.show();
+        // This IF statement checks if button was clicked and if it was OK
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Takes user to main screen - code block below
+            Stage stageMainScreen;
+            Parent root;
+            stageMainScreen = (Stage) cancelButtonProduct.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
+            root = loader.load();
+            Scene scene = new Scene(root);
+            stageMainScreen.setScene(scene);
+            stageMainScreen.show();
+        }
     }
 
     @Override

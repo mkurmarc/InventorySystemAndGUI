@@ -34,7 +34,7 @@ public class Inventory {
         }
     }
 
-    public static Part lookupPart(int partId) {
+    public static Part lookupPart(int partId ) {
         Part checkPart = null;
         int checkPartID;
         for(int i=0; i < (allParts.size()); i++) {

@@ -15,6 +15,7 @@ import sample.Model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static sample.Model.Inventory.getAllParts;
@@ -143,8 +144,17 @@ public class MainScreenController implements Initializable {
     }
 
 
-    public void exitButtonHandler(ActionEvent actionEvent) {
-        System.exit(0);
+    public void exitButtonHandler(ActionEvent actionEvent) throws IOException {
+        // Created an alert when the cancel button is clicked confirm exit of application
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to close the application?");
+        // Use result variable to get information on the buttons, like if one was pushed
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // This IF statement checks if button was clicked and if it was OK
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Exits application - code block below
+            System.exit(0);
+        }
     }
 
 

@@ -10,8 +10,12 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.Model.*;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static sample.Model.InHouse.validInHousePart;
 import static sample.Model.Part.*;
 import static sample.View_Controller.MainScreenController.getIndexModifyPart;
 
@@ -71,143 +75,6 @@ public class modifyPartController implements Initializable {
     int indexModProduct = getIndexModifyPart();
     int partID;
 
-//    public static void changeLabelField(String labelText, String fieldText) {
-//        variableModifyPartLabel.setText(labelText);
-//        variableModifyPartField.setText(fieldText);
-//    }
-
-    // When in-house radio button is pushed, changes variable field and label
-    @FXML
-    public void inhouseModifyRadioButtonHandler(ActionEvent actionEvent) {
-        isInHouse = true;
-        variableModifyPartLabel.setText("Machine ID");
-        variableModifyPartField.setText("Mach ID");
-//        changeLabelField("Machine ID", "Mach ID");
-    }
-
-    // When outsource radio button is pushed, changes variable field and label
-    @FXML
-    public void outsourcedModifyRadioHandler(ActionEvent actionEvent) {
-        isInHouse = false;
-        variableModifyPartLabel.setText("Company Name");
-        variableModifyPartField.setText("Comp Name");
-//        changeLabelField("Company Name", "comp Nm");
-    }
-
-/*
-    public void sendPart(Outsourced partModifyOutsourced) {
-        idModifyPartField.setText(String.valueOf(partModifyOutsourced.getIdPart()));  // Must be string argument
-        nameModifyPartField.setText(partModifyOutsourced.getNamePart());
-        inventoryModifyPartField.setText(String.valueOf(partModifyOutsourced.getStockPart()));
-        priceCostModifyField.setText(String.valueOf(partModifyOutsourced.getPricePart()));
-        minModifyPartField.setText(String.valueOf(partModifyOutsourced.getMinPart()));
-        maxModifyPartField.setText(String.valueOf(partModifyOutsourced.getMaxPart()));
-        variableModifyPartField.setText(partModifyOutsourced.getCompanyName());
-
-    }
-
-    public void sendInHousePart(InHouse partModifyInHouse) {
-        idModifyPartField.setText(String.valueOf(partModifyInHouse.getIdPart()));  // Must be string argument
-        nameModifyPartField.setText(partModifyInHouse.getNamePart());
-        inventoryModifyPartField.setText(String.valueOf(partModifyInHouse.getStockPart()));
-        priceCostModifyField.setText(String.valueOf(partModifyInHouse.getPricePart()));
-        minModifyPartField.setText(String.valueOf(partModifyInHouse.getMinPart()));
-        maxModifyPartField.setText(String.valueOf(partModifyInHouse.getMaxPart()));
-        variableModifyPartField.setText(String.valueOf(partModifyInHouse.getMachineId()));
-    }
- */
-
-    // Method below handles the save button when clicked
-    @FXML
-    public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException {
-
-        int idPart = 100;
-        String name = nameModifyPartField.getText();
-        double price = Double.parseDouble(priceCostModifyField.getText());
-        int stock = Integer.parseInt(inventoryModifyPartField.getText());
-        int min = Integer.parseInt(minModifyPartField.getText());
-        int max = Integer.parseInt(maxModifyPartField.getText());
-        int machineId = Integer.parseInt(variableModifyPartField.getText());
-        String errorMsg = "";
-
-        if (isInHouse) {
-            // need method to create ID #s and check against the observable list
-            if (validInHousePart(name, price, stock, min, max, machineId, errorMsg)) {
-                // Below save data from fields to respective database if the part data entered is valid
-//            InHouse newPart = new InHouse(idPart, name, price, stock, min, max, machineId);
-//            Inventory.addPart(newPart);
-                // Exit to main screen below
-                Stage stageMainScreen;
-                Parent root;
-                stageMainScreen = (Stage) saveModifyPartButton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
-                root = loader.load();
-                Scene scene = new Scene(root);
-                stageMainScreen.setScene(scene);
-                stageMainScreen.show();
-            }
-            else {
-                Stage stageInHouse;
-                Parent root;
-                stageInHouse = (Stage) saveModifyPartButton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("modifyPart.fxml"));
-                root = loader.load();
-                Scene scene = new Scene(root);
-                stageInHouse.setScene(scene);
-                stageInHouse.show();
-                System.out.println(partInputErrorMessageInHouse(name, price, stock, min, max, machineId, errorMsg));
-            }
-        }
-
-        if (!isInHouse) {
-            String companyName = variableModifyPartField.getText();
-            int partID = 100; // Need method to generate ID
-            int indexPart = getIndexModifyPart();
-            if (addPartController.validOutsourcedPart(name, price, stock, min, max, companyName, errorMsg)) {
-                Outsourced outsourcedPart = new Outsourced(partID, name, price, stock, min, max, companyName);
-                Inventory.updatePart(indexPart, outsourcedPart);
-            }
-            else {
-                Stage stageInHouse;
-                Parent root;
-                stageInHouse = (Stage) saveModifyPartButton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("modifyPart.fxml"));
-                root = loader.load();
-                Scene scene = new Scene(root);
-                stageInHouse.setScene(scene);
-                stageInHouse.show();
-                System.out.println(partInputErrorMessageOutsourced(name, price, stock, min, max, companyName, errorMsg));
-            }
-        }
-    }
-
-    // Method below handles the cancel button when clicked
-    @FXML
-    public void cancelButtonInHouseHandler(ActionEvent actionEvent) throws IOException {
-        Stage stageMainScreen;
-        Parent root;
-        stageMainScreen = (Stage) cancelModifyPartButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
-        root = loader.load();
-        Scene scene = new Scene(root);
-        stageMainScreen.setScene(scene);
-        stageMainScreen.show();
-    }
-
-    // Method below validates in-house parts and prints error message if not valid
-    public boolean validInHousePart(String name, double price, int stock, int min, int max,
-                                    int machineId, String errorMessage) {
-        if (name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max &&
-                stock >= min && machineId != 0) {
-            return true;
-        }
-        else {
-            errorMessage = partInputErrorMessageInHouse(name, price, stock, min, max, machineId, errorMessage);
-            System.out.println(errorMessage);
-            return false;
-        }
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Part modPart = Inventory.getAllParts().get(indexModPart);
@@ -237,4 +104,145 @@ public class modifyPartController implements Initializable {
             variableModifyPartLabel.setText("Machine ID");
         }
     }
+
+    // When outsource radio button is pushed, changes variable field and label. The previously saved field data
+    // is preserved even when radio button is switched.
+    @FXML
+    public void inhouseModifyRadioButtonHandler(ActionEvent actionEvent) {
+        isInHouse = true;
+        variableModifyPartLabel.setText("Machine ID");
+        variableModifyPartField.getText();
+    }
+
+    // When outsource radio button is pushed, changes variable field and label. The previously saved field data
+    // is preserved even when radio button is switched.
+    @FXML
+    public void outsourcedModifyRadioHandler(ActionEvent actionEvent) {
+        isInHouse = false;
+        variableModifyPartLabel.setText("Company Name");
+        variableModifyPartField.getText();
+    }
+
+/*
+    public void sendPart(Outsourced partModifyOutsourced) {
+        idModifyPartField.setText(String.valueOf(partModifyOutsourced.getIdPart()));  // Must be string argument
+        nameModifyPartField.setText(partModifyOutsourced.getNamePart());
+        inventoryModifyPartField.setText(String.valueOf(partModifyOutsourced.getStockPart()));
+        priceCostModifyField.setText(String.valueOf(partModifyOutsourced.getPricePart()));
+        minModifyPartField.setText(String.valueOf(partModifyOutsourced.getMinPart()));
+        maxModifyPartField.setText(String.valueOf(partModifyOutsourced.getMaxPart()));
+        variableModifyPartField.setText(partModifyOutsourced.getCompanyName());
+
+    }
+
+    public void sendInHousePart(InHouse partModifyInHouse) {
+        idModifyPartField.setText(String.valueOf(partModifyInHouse.getIdPart()));  // Must be string argument
+        nameModifyPartField.setText(partModifyInHouse.getNamePart());
+        inventoryModifyPartField.setText(String.valueOf(partModifyInHouse.getStockPart()));
+        priceCostModifyField.setText(String.valueOf(partModifyInHouse.getPricePart()));
+        minModifyPartField.setText(String.valueOf(partModifyInHouse.getMinPart()));
+        maxModifyPartField.setText(String.valueOf(partModifyInHouse.getMaxPart()));
+        variableModifyPartField.setText(String.valueOf(partModifyInHouse.getMachineId()));
+    }
+ */
+
+    // Method below handles the save button when clicked
+    @FXML
+    public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException, NumberFormatException {
+
+        try {
+            int idPart = 100;
+            String name = nameModifyPartField.getText();
+            double price = Double.parseDouble(priceCostModifyField.getText());
+            int stock = Integer.parseInt(inventoryModifyPartField.getText());
+            int min = Integer.parseInt(minModifyPartField.getText());
+            int max = Integer.parseInt(maxModifyPartField.getText());
+            String errorMsg = "";
+            int indexPart = getIndexModifyPart();
+        /*
+          This if statement checks if the part is in house, and if it is, it will create an in house part and update
+          the inventory
+        */
+            if (isInHouse) {
+                // need method to create ID #s and check against the observable list
+                int machineId = Integer.parseInt(variableModifyPartField.getText());
+                if (validInHousePart(name, price, stock, min, max, machineId, errorMsg)) {
+                    InHouse inHousePart = new InHouse(idPart, name, price, stock, min, max, machineId);
+                    Inventory.updatePart(indexPart, inHousePart);
+                }
+            }
+        /*
+         This if statement checks if the part is in house, and if it is, it will create an outsourced part and update
+         the inventory
+        */
+            if (!isInHouse) {
+                String companyName = variableModifyPartField.getText();
+                if (addPartController.validOutsourcedPart(name, price, stock, min, max, companyName, errorMsg)) {
+                    Outsourced outsourcedPart = new Outsourced(idPart, name, price, stock, min, max, companyName);
+                    Inventory.updatePart(indexPart, outsourcedPart);
+                }
+
+            }
+            // Exit to main screen below
+            Stage stageMainScreen;
+            Parent root;
+            stageMainScreen = (Stage) saveModifyPartButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
+            root = loader.load();
+            Scene scene = new Scene(root);
+            stageMainScreen.setScene(scene);
+            stageMainScreen.show();
+        }
+        catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialogue Box");
+            alert.setContentText("Please enter a whole number in the stock text box. ");
+            alert.showAndWait();
+/*
+            System.out.println("OHNO!");
+            System.out.println("Exception:" + e);
+            System.out.println("Exception:" + e.getMessage());
+*/
+        }
+
+    }
+
+    // Method below handles the cancel button when clicked
+    @FXML
+    public void cancelButtonHandler(ActionEvent actionEvent) throws IOException {
+        // Created an alert when the cancel button is clicked to prevent accidental information loss
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will clear all text field values. " +
+                "Do you want to continue?");
+        // Use result variable to get information on the buttons, like if one was pushed
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // This IF statement checks if button was clicked and if it was OK
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Takes user to main screen - code block below
+            Stage stageMainScreen;
+            Parent root;
+            stageMainScreen = (Stage) cancelModifyPartButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
+            root = loader.load();
+            Scene scene = new Scene(root);
+            stageMainScreen.setScene(scene);
+            stageMainScreen.show();
+        }
+
+    }
+
+    // Method below validates in-house parts and prints error message if not valid
+    public boolean validInHousePart(String name, double price, int stock, int min, int max,
+                                    int machineId, String errorMessage) {
+        if (name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max &&
+                stock >= min && machineId != 0) {
+            return true;
+        }
+        else {
+            errorMessage = partInputErrorMessageInHouse(name, price, stock, min, max, machineId, errorMessage);
+            System.out.println(errorMessage);
+            return false;
+        }
+    }
+
 }
