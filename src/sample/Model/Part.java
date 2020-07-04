@@ -1,6 +1,11 @@
 package sample.Model;
 
-import javafx.collections.ObservableList;
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
 
 public abstract class Part {
 
@@ -17,6 +22,11 @@ public abstract class Part {
         this.stockPart = stockPart;
         this.minPart = minPart;
         this.maxPart = maxPart;
+    }
+
+    // TRY ADDING THIS TO ARGUMENT FOR CREATING NEW PART. Method below sets part ID and increments it one afterwards
+    public void setPartID() {
+        idPart++;
     }
 
     // Setters and Getters
@@ -68,16 +78,17 @@ public abstract class Part {
         this.maxPart = maxPart;
     }
 
-    // Method is for In-House parts only
+    // Method is for In-House parts only. If the part input is not valid, this method returns the appropriate
+    // error message
     public static String partInputErrorMessageInHouse(String name, double price, int stock, int min, int max, int machineId, String errorMsg) {
         if (name.equals("")) {
             errorMsg = errorMsg + ("The name field is empty. ");
         }
         if (price == 0) {
-            errorMsg = errorMsg + ("The price must be more than 0. ");
+            errorMsg = errorMsg + ("The price must be more than 0. Example: 12.74 ");
         }
         if (stock < 1) {
-            errorMsg = errorMsg + ("The inventory must be more than 0. ");
+            errorMsg = errorMsg + ("The stock must greater than 0. ");
         }
         if (min > max) {
             errorMsg = errorMsg + ("The minimum must be less than the maximum. ");
@@ -91,10 +102,10 @@ public abstract class Part {
         return errorMsg;
     }
 
-
-        // Overloaded this method for Outsourced parts only
-
-        public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max, String compName, String errorMsg) {
+        // This method for Outsourced parts only. If the part input is not valid, this method returns the appropriate
+        // error message
+        public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max,
+                                                              String compName, String errorMsg) {
             if (name.equals("")) {
                 errorMsg += ("The name field is empty. ");
             }

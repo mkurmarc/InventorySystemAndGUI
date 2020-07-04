@@ -2,38 +2,56 @@ package sample.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
 import sample.Model.Part;
 import sample.Model.Product;
 
+import java.net.URL;
 import java.util.Observable;
+import java.util.ResourceBundle;
 
-public class Inventory {
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
+
+public class Inventory implements Initializable {
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
-    private static int partIdTally;
-    private static int productIdTally;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     public static void addPart(Part newPart) {
-        allParts.add(newPart);
+        if (newPart != null) {
+            allParts.add(newPart);
+        }
     }
 
     public static void addProduct(Product newProduct) {
-        allProducts.add(newProduct);
+        if (newProduct != null) {
+            allProducts.add(newProduct);
+        }
     }
 
-    public Part lookupPart(int partId) {
+    public static Part lookupPart(int partId) {
+//        boolean isFound = false;
         Part checkPart = null;
         int checkPartID;
         for(int i=0; i < (allParts.size()); i++) {
             checkPart = allParts.get(i);
             checkPartID = checkPart.getIdPart();
             if(checkPartID == partId) {
+//                isFound = true;
                 break;
             }
         }
-        return checkPart;
+            return checkPart;
     }
 
     public Product lookupProduct(int productId) {
@@ -81,7 +99,7 @@ public class Inventory {
         return queryPartList;
     }
 
-    public void updatePart(int index, Part newPart) {
+    public static void updatePart(int index, Part newPart) {
         allParts.set(index, newPart);
     }
 
@@ -114,5 +132,4 @@ public class Inventory {
     public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
-
 }

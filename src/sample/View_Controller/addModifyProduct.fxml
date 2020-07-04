@@ -5,11 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.3673012318029115" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="929.0" style="-fx-background-color: E0E0E0; -fx-border-style: solid; -fx-border-insets: 15; -fx-border-color: GRAY; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<!--        @AUTHOR-->
+<!--        Marc Rios-->
+<!--        ID: 787989-->
+
+<SplitPane dividerPositions="0.3673012318029115" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity" prefHeight="523.0" prefWidth="929.0"
+           style="-fx-background-color: E0E0E0; -fx-border-style: solid; -fx-border-insets: 15; -fx-border-color: GRAY; -fx-border-width: 2;"
+           xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.productController">
    <items>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label text="Add Product" textFill="#0b1183">
+            <Label fx:id="variableProductLabel" text="Add Product" textFill="#0b1183">
                <font>
                   <Font name="Arial Bold" size="18.0" />
                </font>
@@ -25,7 +32,7 @@
                      <padding>
                         <Insets top="5.0" />
                      </padding></Label>
-                  <TextField prefHeight="33.0" />
+                  <TextField fx:id="idProduct" prefHeight="33.0" />
                </children>
             </HBox>
             <HBox prefHeight="50.0" prefWidth="200.0">
@@ -37,7 +44,7 @@
                      <padding>
                         <Insets top="5.0" />
                      </padding></Label>
-                  <TextField prefHeight="33.0" text="Product Name">
+                  <TextField fx:id="nameProduct" prefHeight="33.0" text="Product Name">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font></TextField>
@@ -53,7 +60,7 @@
                         <Insets top="5.0" />
                      </padding>
                   </Label>
-                  <TextField prefHeight="33.0" prefWidth="75.0" text="Inv">
+                  <TextField fx:id="invProduct" prefHeight="33.0" prefWidth="75.0" text="Inv">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
@@ -70,7 +77,7 @@
                         <Insets top="5.0" />
                      </padding>
                   </Label>
-                  <TextField prefHeight="33.0" prefWidth="75.0" text="Price">
+                  <TextField fx:id="priceProduct" prefHeight="33.0" prefWidth="75.0" text="Price">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
@@ -87,7 +94,7 @@
                         <Insets top="5.0" />
                      </padding>
                   </Label>
-                  <TextField prefHeight="33.0" prefWidth="75.0" text="Max">
+                  <TextField fx:id="maxInvProduct" prefHeight="33.0" prefWidth="75.0" text="Max">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
@@ -100,7 +107,7 @@
                         <Insets top="5.0" />
                      </padding>
                   </Label>
-                  <TextField prefHeight="33.0" prefWidth="75.0" text="Min">
+                  <TextField fx:id="minInvProduct" prefHeight="33.0" prefWidth="75.0" text="Min">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
@@ -113,54 +120,60 @@
          <children>
             <HBox prefHeight="49.0" prefWidth="562.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Search">
+                  <Button fx:id="searchButtonProduct" mnemonicParsing="false" onAction="#searchButtonProductHandler"
+                          prefHeight="25.0" prefWidth="68.0" text="Search">
                      <HBox.margin>
                         <Insets bottom="12.0" left="120.0" right="15.0" top="42.0" />
                      </HBox.margin></Button>
-                  <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="149.0">
+                  <TextField fx:id="searchProductField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="149.0">
                      <HBox.margin>
                         <Insets top="45.0" />
                      </HBox.margin></TextField>
                </children>
             </HBox>
-            <TableView prefHeight="174.0" prefWidth="502.0">
+            <TableView fx:id="allPartsTableView" prefHeight="174.0" prefWidth="502.0">
               <columns>
-                <TableColumn prefWidth="116.0" text="Part ID" />
-                <TableColumn prefWidth="115.0" text="Part Name" />
-                  <TableColumn prefWidth="143.0" text="Inventory Level" />
-                  <TableColumn prefWidth="127.0" text="Price Per Unit" />
+                <TableColumn fx:id="idAllPartsColumn" prefWidth="116.0" text="Part ID" />
+                <TableColumn fx:id="nameAllPartsColumn" prefWidth="115.0" text="Part Name" />
+                  <TableColumn fx:id="invAllPartsColumn" prefWidth="143.0" text="Inventory Level" />
+                  <TableColumn fx:id="priceAllPartsColumn" prefWidth="127.0" text="Price Per Unit" />
               </columns>
                <VBox.margin>
                   <Insets bottom="7.0" left="10.0" right="50.0" />
                </VBox.margin>
             </TableView>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Add">
+            <Button fx:id="addButtonProduct" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                    mnemonicParsing="false" onAction="#addButtonProductHandler" prefHeight="27.0" prefWidth="73.0" text="Add">
                <VBox.margin>
                   <Insets bottom="25.0" left="400.0" right="40.0" />
                </VBox.margin>
             </Button>
-            <TableView prefHeight="174.0" prefWidth="502.0">
+            <TableView fx:id="tableViewAssocParts" prefHeight="174.0" prefWidth="502.0">
               <columns>
-                <TableColumn prefWidth="109.0" text="Part ID" />
-                <TableColumn prefWidth="120.0" text="Part Name" />
-                  <TableColumn prefWidth="144.0" text="Inventory Level" />
-                  <TableColumn prefWidth="128.0" text="Price Per Unit" />
+                <TableColumn fx:id="idAssocPartColumn" prefWidth="109.0" text="Part ID" />
+                <TableColumn fx:id="nameAssocPartColumn" prefWidth="120.0" text="Part Name" />
+                  <TableColumn fx:id="invAssocPartColumn" prefWidth="144.0" text="Inventory Level" />
+                  <TableColumn fx:id="priceAssocPartColumn" prefWidth="128.0" text="Price Per Unit" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="50.0" />
                </VBox.margin>
             </TableView>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Delete">
+            <Button fx:id="deleteButtonProduct" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                    minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteAssocPartButtonHandler" prefHeight="27.0"
+                    prefWidth="73.0" text="Delete">
                <VBox.margin>
                   <Insets bottom="10.0" left="400.0" />
                </VBox.margin></Button>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Save">
+                  <Button fx:id="saveButtonProduct" mnemonicParsing="false" onAction="#saveButtonProductHandler"
+                          prefHeight="27.0" prefWidth="73.0" text="Save">
                      <HBox.margin>
                         <Insets left="315.0" />
                      </HBox.margin></Button>
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Cancel">
+                  <Button fx:id="cancelButtonProduct" mnemonicParsing="false" onAction="#cancelButtonProductHandler"
+                          prefHeight="27.0" prefWidth="73.0" text="Cancel">
                      <HBox.margin>
                         <Insets left="12.0" />
                      </HBox.margin></Button>

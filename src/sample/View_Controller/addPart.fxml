@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0"
+      xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.addPartController">
+   <HBox prefHeight="100.0" prefWidth="200.0">
+      <Label fx:id="addPartLabel" text="Add Part" textFill="#0b1183">
+         <HBox.margin>
+            <Insets left="20.0" right="30.0" top="15.0" />
+         </HBox.margin>
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="inHouse" mnemonicParsing="false" onAction="#inHouseRadioButtonHandler" text="In-House">
+         <HBox.margin>
+            <Insets left="15.0" right="10.0" top="20.0" />
+         </HBox.margin>
+         <toggleGroup>
+            <ToggleGroup fx:id="sourceOfPart" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="outSourcedOut" mnemonicParsing="false" onAction="#outsourceRadioButtonHandler" selected="true" text="Outsourced" toggleGroup="$sourceOfPart">
+         <HBox.margin>
+            <Insets left="15.0" top="20.0" />
+         </HBox.margin>
+      </RadioButton>
+   </HBox>
+   <HBox prefHeight="85.0" prefWidth="200.0">
+      <VBox.margin>
+         <Insets left="75.0" />
+      </VBox.margin>
+      <Label prefWidth="120.0" text="ID">
+         <HBox.margin>
+            <Insets top="6.0" />
+         </HBox.margin>
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idPartField" prefHeight="32.0" prefWidth="125.0"  disable="true"/>
+   </HBox>
+   <HBox layoutX="10.0" layoutY="110.0" prefHeight="85.0" prefWidth="200.0">
+      <VBox.margin>
+         <Insets left="75.0" />
+      </VBox.margin>
+      <Label prefWidth="120.0" text="Name">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets top="6.0" />
+         </HBox.margin>
+      </Label>
+      <TextField fx:id="namePartField" prefHeight="32.0" prefWidth="125.0" text="Part Name">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+   </HBox>
+   <HBox layoutX="10.0" layoutY="210.0" prefHeight="85.0" prefWidth="200.0">
+      <VBox.margin>
+         <Insets left="75.0" />
+      </VBox.margin>
+      <Label prefWidth="120.0" text="Inventory">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets top="6.0" />
+         </HBox.margin>
+      </Label>
+      <TextField fx:id="inventoryPartField" prefHeight="32.0" prefWidth="125.0" text="Current Inv">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+   </HBox>
+   <HBox layoutX="10.0" layoutY="310.0" prefHeight="85.0" prefWidth="200.0">
+      <VBox.margin>
+         <Insets left="75.0" />
+      </VBox.margin>
+      <Label prefWidth="120.0" text="Price/Cost">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets top="6.0" />
+         </HBox.margin>
+      </Label>
+      <TextField fx:id="priceCostPartField" prefHeight="32.0" prefWidth="125.0" text="Price/Cost">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+   </HBox>
+   <HBox layoutX="10.0" layoutY="367.0" prefHeight="85.0" prefWidth="200.0">
+      <VBox.margin>
+         <Insets left="75.0" />
+      </VBox.margin>
+      <Label prefWidth="120.0" text="Max">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets top="6.0" />
+         </HBox.margin>
+      </Label>
+      <TextField fx:id="maxPartField" prefHeight="32.0" prefWidth="82.0" text="Max">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+      <Label text="Min">
+         <HBox.margin>
+            <Insets left="20.0" right="10.0" top="6.0" />
+         </HBox.margin>
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="minPartField" layoutX="130.0" layoutY="10.0" prefHeight="32.0" prefWidth="82.0" text="Min">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+   </HBox>
+   <HBox layoutX="10.0" layoutY="382.0" prefHeight="85.0" prefWidth="200.0">
+      <VBox.margin>
+         <Insets left="75.0" />
+      </VBox.margin>
+      <Label fx:id="companyNameLabel" prefWidth="120.0" text="Company Name">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets top="6.0" />
+         </HBox.margin>
+      </Label>
+      <TextField fx:id="variableField" prefHeight="32.0" prefWidth="97.0" text="Comp Nm">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </TextField>
+   </HBox>
+   <HBox prefHeight="78.0" prefWidth="477.0">
+      <children>
+         <Button fx:id="savePartButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveButtonActionHandler" prefHeight="27.0" prefWidth="73.0" text="Save">
+            <HBox.margin>
+               <Insets left="277.0" />
+            </HBox.margin>
+         </Button>
+         <Button fx:id="cancelPartButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelButtonActionHandler" prefHeight="27.0" prefWidth="73.0" text="Cancel">
+            <HBox.margin>
+               <Insets left="20.0" right="20.0" />
+            </HBox.margin>
+         </Button>
+      </children>
+   </HBox>
+</VBox>
