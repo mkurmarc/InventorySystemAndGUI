@@ -25,8 +25,8 @@ public abstract class Part {
     }
 
     // TRY ADDING THIS TO ARGUMENT FOR CREATING NEW PART. Method below sets part ID and increments it one afterwards
-    public void setPartID() {
-        idPart++;
+    public int generateNewIdPart() {
+        return idPart++;
     }
 
     // Setters and Getters

@@ -28,6 +28,9 @@ public class Product {
         this.max = max;
     }
 
+    public int generateIdProduct() {
+        return id++;
+    }
 
     public static void addAssociatedPart(Part part) {
         if (part == null) {

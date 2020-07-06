@@ -31,8 +31,6 @@ import static sample.Model.Inventory.getAllParts;
 
 public class productController implements Initializable {
 
-    private ObservableList<Part> partsForAssociatedList = FXCollections.observableArrayList();
-
     @FXML
     private Label variableProductLabel;
 
@@ -123,10 +121,10 @@ public class productController implements Initializable {
          Sets bottom table view and columns with associated parts linked to the product available in the
          observable array list for add and modify product scene
         */
-        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("Product.id"));
-        nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
+        nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
+        priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
+        invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
         tableViewAssocParts.setItems(Product.getAllAssociatedParts());
     }
 
