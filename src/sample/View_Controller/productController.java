@@ -135,33 +135,31 @@ public class productController implements Initializable {
 
     public void addButtonProductHandler(ActionEvent actionEvent) {
         partAddToAssociated = allPartsTableView.getSelectionModel().getSelectedItem();
-        Product.addAssociatedPart(partAddToAssociated);
-        tableViewAssocParts.setItems(Product.getAllAssociatedParts());
-/*
         boolean duplicateItem = false;
 
         if (partAddToAssociated == null) {
-            return;
-        } else {
-            int id = partAddToAssociated.getIdPart();
-            Product.addAssociatedPart(partAddToAssociated);
-            for (int i = 0; i < Product.getAllAssociatedParts().size(); i++) {
-                if (Product.getAllAssociatedParts().get(i).getIdPart() == id) {
-                    duplicateItem = true;
-                }
-            }
-            if (!duplicateItem) {
-                Product.getAllAssociatedParts().add(partAddToAssociated);
-            }
-            tableViewAssocParts.setItems(Product.getAllAssociatedParts());
-        }
-        else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the table above" +
                     " to add to the associated part list.");
             alert.setTitle("Error Dialogue Box");
             alert.showAndWait();
+        } else {
+            int id = partAddToAssociated.getIdPart();
+            for (int i = 0; i < Product.getAllAssociatedParts().size(); i++) {
+                if (Product.getAllAssociatedParts().get(i).getIdPart() == id) {
+                    duplicateItem = true;
+                    break;
+                }
+            }
+            if (!duplicateItem) {
+                Product.getAllAssociatedParts().add(partAddToAssociated);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Part selected is already associated with" +
+                        "that product.");
+                alert.setTitle("Error Dialogue Box");
+                alert.showAndWait();
+            }
+            tableViewAssocParts.setItems(Product.getAllAssociatedParts());
         }
-*/
     }
 
     public void deleteAssocPartButtonHandler(ActionEvent actionEvent) {
