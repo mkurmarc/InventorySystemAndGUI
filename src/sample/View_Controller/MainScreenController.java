@@ -249,44 +249,6 @@ public class MainScreenController implements Initializable {
             alert.setTitle("Error Dialogue Box");
             alert.showAndWait();
         }
-
-
-//        modPart = partsTableView.getSelectionModel().getSelectedItem();
-//        indexModifyProduct = getAllParts().indexOf(modPart);
-//        Parent modParts = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
-//        Scene scene = new Scene(modParts);
-//        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//        window.setScene(scene);
-//        window.show();
-
-
-        /*
-        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
-
-        // Now that the scene is loaded, set the scene to the stage
-        stage.setScene(new Scene(scene));
-        stage.show();
-
-         */
-        /*
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("addPart.fxml"));
-        loader.load();
-
-        OutsourcedPartController MSController = loader.getController();
-        MSController.sendPart(productsTableView.getSelectionModel().getSelectedItem());
-
-
-        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-
-        // Now that the scene is loaded, set the scene to the stage
-        stage.setScene(new Scene(scene));
-        stage.show();
-         */
     }
 
 

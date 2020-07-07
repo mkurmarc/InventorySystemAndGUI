@@ -213,12 +213,17 @@ public class productController implements Initializable {
         int stock = Integer.parseInt(invProduct.getText());
         int min = Integer.parseInt(minInvProduct.getText());
         int max = Integer.parseInt(maxInvProduct.getText());
-        int indexPart = getIndexModifyProduct();
+        int indexPart;
 
-        Product newModProduct = new Product(productId, name, price, stock, min, max);
-        Inventory.updateProduct(indexPart, newModProduct);
-
-        // Exit to main screen below
+        if (isModifyProductScene) {
+            indexPart = getIndexModifyProduct();
+            Product newModProduct = new Product(productId, name, price, stock, min, max);
+            Inventory.updateProduct(indexPart, newModProduct);
+        } else {
+            Product newModProduct = new Product(Product.generateIdProduct(), name, price, stock, min, max);
+            Inventory.addProduct(newModProduct);
+        }
+        // exit to main screen below
         Stage stageMainScreen;
         Parent root;
         stageMainScreen = (Stage) saveButtonProduct.getScene().getWindow();
@@ -227,6 +232,8 @@ public class productController implements Initializable {
         Scene scene = new Scene(root);
         stageMainScreen.setScene(scene);
         stageMainScreen.show();
+        // resets the boolean to false to ensure it works next time user wants to add or modify a product
+        isModifyProductScene = false;
     }
 
     public void cancelButtonProductHandler(ActionEvent actionEvent) throws IOException {

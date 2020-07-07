@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0"
-      xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.addPartController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.addPartController">
    <HBox prefHeight="100.0" prefWidth="200.0">
       <Label fx:id="addPartLabel" text="Add Part" textFill="#0b1183">
          <HBox.margin>
@@ -42,7 +41,7 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="idPartField" prefHeight="32.0" prefWidth="125.0"  disable="true"/>
+      <TextField fx:id="idPartField" disable="true" prefHeight="32.0" prefWidth="125.0" text="AUTO GENERATED" />
    </HBox>
    <HBox layoutX="10.0" layoutY="110.0" prefHeight="85.0" prefWidth="200.0">
       <VBox.margin>
