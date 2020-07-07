@@ -1,5 +1,6 @@
 package sample.Model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.Collection;
@@ -12,7 +13,7 @@ import java.util.Collection;
  */
 
 public class Product {
-    private static ObservableList<Part> associatedParts;
+    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int id;
     private String name;
     private double price;
@@ -27,11 +28,15 @@ public class Product {
         this.max = max;
     }
 
+    public int generateIdProduct() {
+        return id++;
+    }
 
     public static void addAssociatedPart(Part part) {
-        if (part != null) {
-            associatedParts.add(part);
+        if (part == null) {
+            return;
         }
+        associatedParts.add(part);
     }
 
     public static boolean deleteAssociatedPart(Part selectedAssociatedPart) {
@@ -100,3 +105,10 @@ public class Product {
         return this.max;
     }
 }
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */

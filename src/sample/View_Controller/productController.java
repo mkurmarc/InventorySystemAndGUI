@@ -1,7 +1,5 @@
 package sample.View_Controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.ir.Block;
 import sample.Model.Inventory;
 import sample.Model.Part;
 import sample.Model.Product;
@@ -21,6 +20,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static sample.Model.Inventory.getAllParts;
+import static sample.View_Controller.MainScreenController.*;
 
 /*
     @AUTHOR
@@ -30,8 +30,6 @@ import static sample.Model.Inventory.getAllParts;
  */
 
 public class productController implements Initializable {
-
-    private ObservableList<Part> partsForAssociatedList = FXCollections.observableArrayList();
 
     @FXML
     private Label variableProductLabel;
@@ -102,13 +100,34 @@ public class productController implements Initializable {
     @FXML
     private Button cancelButtonProduct;
 
-    // Variables for switching screens later
-    Stage stage;
-    Parent scene;
-    private Part partAddToAssociated;
+    int indexModProduct = getIndexModifyProduct();
+    int productId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        /*
+        This if statement checks if the modify button from main screen was pushed or not. If it was pushed, then the
+        label changes appropriately. Vice versa if the button was not pushed.
+        */
+        if (isModifyProductScene) {
+            variableProductLabel.setText("Modify Product");
+        /*
+        Block below gets users selection from main screen product table and transfers information of selected
+        product to the text fields in add/modify product scene
+        */
+            Product modProduct = Inventory.getAllProducts().get(indexModProduct);
+            productId = Inventory.getAllProducts().get(indexModProduct).getId();
+            idProduct.setText(String.valueOf(productId));
+            nameProduct.setText(modProduct.getNameProduct());
+            invProduct.setText(String.valueOf(modProduct.getStock()));
+            priceProduct.setText(String.valueOf(modProduct.getPrice()));
+            minInvProduct.setText(String.valueOf(modProduct.getMin()));
+            maxInvProduct.setText(String.valueOf(modProduct.getMax()));
+
+        } else {
+            variableProductLabel.setText("Add Product");
+        }
+
         /*
          Sets top table view and columns with all the parts available in the observable array list for add and
          modify product scene
@@ -123,11 +142,12 @@ public class productController implements Initializable {
          Sets bottom table view and columns with associated parts linked to the product available in the
          observable array list for add and modify product scene
         */
-        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        idAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("idPart"));
+        nameAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("namePart"));
+        priceAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("pricePart"));
+        invAssocPartColumn.setCellValueFactory(new PropertyValueFactory<>("stockPart"));
         tableViewAssocParts.setItems(Product.getAllAssociatedParts());
+
     }
 
     public void searchButtonProductHandler(ActionEvent actionEvent) {
@@ -136,31 +156,46 @@ public class productController implements Initializable {
     }
 
     public void addButtonProductHandler(ActionEvent actionEvent) {
-        partAddToAssociated = allPartsTableView.getSelectionModel().getSelectedItem();
+        // line below turns user selection into a part object
+        Part partAddToAssociated = allPartsTableView.getSelectionModel().getSelectedItem();
         boolean duplicateItem = false;
 
+        // condition checks if user has not selected anything
         if (partAddToAssociated == null) {
-            return;
+            // alerts user that nothing ahs been selected
+            Alert alert = new Alert(Alert.AlertType.ERROR, "\nPlease select one part from the table above" +
+                    " to add to the associated part list.");
+            alert.setTitle("Error Dialogue Box");
+            alert.showAndWait();
         } else {
             int id = partAddToAssociated.getIdPart();
-            Product.addAssociatedPart(partAddToAssociated);
+            // for loop checks associatedParts list against user selected part for any duplicates
             for (int i = 0; i < Product.getAllAssociatedParts().size(); i++) {
                 if (Product.getAllAssociatedParts().get(i).getIdPart() == id) {
                     duplicateItem = true;
+                    break;
                 }
             }
+            // the if statement adds user selected part to associatedPart list if it is not a duplicate part
             if (!duplicateItem) {
                 Product.getAllAssociatedParts().add(partAddToAssociated);
+            } else {
+                // alerts user if selected part is a duplicate
+                Alert alert = new Alert(Alert.AlertType.ERROR, "\nPart selected is already associated with" +
+                        "that product.");
+                alert.setTitle("Error Dialogue Box");
+                alert.showAndWait();
             }
-            tableViewAssocParts.setItems(partsForAssociatedList);
+            tableViewAssocParts.setItems(Product.getAllAssociatedParts());
         }
-//        else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the table above" +
-//                    " to add to the associated part list.");
-//            alert.setTitle("Error Dialogue Box");
-//            alert.showAndWait();
-//        }
     }
+
+    /*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+    */
 
     public void deleteAssocPartButtonHandler(ActionEvent actionEvent) {
         Part deletePart = tableViewAssocParts.getSelectionModel().getSelectedItem();
@@ -172,13 +207,6 @@ public class productController implements Initializable {
     public void saveButtonProductHandler(ActionEvent actionEvent) {
 
     }
-
-    /*
-        @AUTHOR
-        Marc Rios
-        ID: 787989
-
-     */
 
     public void cancelButtonProductHandler(ActionEvent actionEvent) throws IOException {
         // Created a confirmation alert when the cancel button is clicked to prevent accidental information loss.

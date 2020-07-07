@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.ir.Block;
 import sample.Model.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -72,11 +73,14 @@ public class modifyPartController implements Initializable {
 
     boolean isInHouse;
     int indexModPart = getIndexModifyPart();
-    int indexModProduct = getIndexModifyPart();
     int partID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        /*
+        Block below gets users selection from main screen part table and transfers information of selected
+        part to the text fields in modify part scene
+        */
         Part modPart = Inventory.getAllParts().get(indexModPart);
         partID = Inventory.getAllParts().get(indexModPart).getIdPart();
         idModifyPartField.setText(String.valueOf(partID));
@@ -86,27 +90,30 @@ public class modifyPartController implements Initializable {
         minModifyPartField.setText(String.valueOf(modPart.getMinPart()));
         maxModifyPartField.setText(String.valueOf(modPart.getMaxPart()));
 
+        // checks is part selected is outsourced
         if (modPart instanceof Outsourced) {
-            // Below sets radio button
+            // below sets radio button
             outsourcedModifyPart.setSelected(true);
-            // Below sets variable part field
+            // below sets variable part field
             variableModifyPartField.setText(((Outsourced) modPart).getCompanyName());
-            // Below sets variable part label
+            // below sets variable part label
             variableModifyPartLabel.setText("Company Name");
         }
 
         else {
-            // Below sets radio button
+            // below sets radio button
             inHouseModifyPart.setSelected(true);
-            // Below sets variable part field
+            // below sets variable part field
             variableModifyPartField.setText(String.valueOf(((InHouse) modPart).getMachineId()));
-            // Below sets variable part label
+            // below sets variable part label
             variableModifyPartLabel.setText("Machine ID");
         }
     }
 
-    // When outsource radio button is pushed, changes variable field and label. The previously saved field data
-    // is preserved even when radio button is switched.
+    /*
+    When outsource radio button is pushed, changes variable field and label. The previously saved field data
+    is preserved even when radio button is switched.
+    */
     @FXML
     public void inHouseModifyRadioButtonHandler(ActionEvent actionEvent) {
         isInHouse = true;
@@ -114,8 +121,10 @@ public class modifyPartController implements Initializable {
         variableModifyPartField.getText();
     }
 
-    // When outsource radio button is pushed, changes variable field and label. The previously saved field data
-    // is preserved even when radio button is switched.
+    /*
+    When outsource radio button is pushed, changes variable field and label. The previously saved field data
+    is preserved even when radio button is switched.
+    */
     @FXML
     public void outsourcedModifyRadioHandler(ActionEvent actionEvent) {
         isInHouse = false;
@@ -123,30 +132,7 @@ public class modifyPartController implements Initializable {
         variableModifyPartField.getText();
     }
 
-/*
-    public void sendPart(Outsourced partModifyOutsourced) {
-        idModifyPartField.setText(String.valueOf(partModifyOutsourced.getIdPart()));  // Must be string argument
-        nameModifyPartField.setText(partModifyOutsourced.getNamePart());
-        inventoryModifyPartField.setText(String.valueOf(partModifyOutsourced.getStockPart()));
-        priceCostModifyField.setText(String.valueOf(partModifyOutsourced.getPricePart()));
-        minModifyPartField.setText(String.valueOf(partModifyOutsourced.getMinPart()));
-        maxModifyPartField.setText(String.valueOf(partModifyOutsourced.getMaxPart()));
-        variableModifyPartField.setText(partModifyOutsourced.getCompanyName());
-
-    }
-
-    public void sendInHousePart(InHouse partModifyInHouse) {
-        idModifyPartField.setText(String.valueOf(partModifyInHouse.getIdPart()));  // Must be string argument
-        nameModifyPartField.setText(partModifyInHouse.getNamePart());
-        inventoryModifyPartField.setText(String.valueOf(partModifyInHouse.getStockPart()));
-        priceCostModifyField.setText(String.valueOf(partModifyInHouse.getPricePart()));
-        minModifyPartField.setText(String.valueOf(partModifyInHouse.getMinPart()));
-        maxModifyPartField.setText(String.valueOf(partModifyInHouse.getMaxPart()));
-        variableModifyPartField.setText(String.valueOf(partModifyInHouse.getMachineId()));
-    }
- */
-
-    // Method below handles the save button when clicked
+    // method below handles the save button when clicked
     @FXML
     public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException, NumberFormatException {
         try
@@ -159,8 +145,8 @@ public class modifyPartController implements Initializable {
             int max = Integer.parseInt(maxModifyPartField.getText());
             int indexPart = getIndexModifyPart();
         /*
-          This if statement checks if the part is in house, and if it is, it will create an in house part and update
-          the inventory
+         This if statement checks if the part is in house, and if it is, it will create an in house part and update
+         the inventory
         */
             if (isInHouse) {
                 int machineId = Integer.parseInt(variableModifyPartField.getText());
@@ -176,7 +162,7 @@ public class modifyPartController implements Initializable {
                 Outsourced outsourcedPart = new Outsourced(idPart, name, price, stock, min, max, companyName);
                 Inventory.updatePart(indexPart, outsourcedPart);
             }
-            // Exit to main screen - code block below
+            // exit to main screen - code block below
             Stage stageMainScreen;
             Parent root;
             stageMainScreen = (Stage) saveModifyPartButton.getScene().getWindow();
@@ -195,7 +181,7 @@ public class modifyPartController implements Initializable {
         }
     }
 
-    // Method below handles the cancel button when clicked
+    // method below handles the cancel button when clicked
     @FXML
     public void cancelButtonHandler(ActionEvent actionEvent) throws IOException {
         // Created an alert when the cancel button is clicked to prevent accidental information loss
