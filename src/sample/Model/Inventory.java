@@ -103,7 +103,7 @@ public class Inventory implements Initializable {
         allParts.set(index, newPart);
     }
 
-    public void updateProduct(int index, Product newProduct) {
+    public static void updateProduct(int index, Product newProduct) {
         allProducts.set(index, newProduct);
     }
 

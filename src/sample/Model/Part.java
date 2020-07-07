@@ -30,7 +30,6 @@ public abstract class Part {
     This method compares local variable int to every part ID in the all parts list to find the highest ID. The
     highest ID + 1 is returned. 
     */
-
     public static int generatePartId() {
         int idToCompare = 1;
         for (int i = 0; i < Inventory.getAllParts().size(); i++) {
@@ -41,7 +40,6 @@ public abstract class Part {
         idToCompare += 1;
         return idToCompare;
     }
-
 
     /*
      Setters and Getters below

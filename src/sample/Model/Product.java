@@ -28,9 +28,16 @@ public class Product {
         this.max = max;
     }
 
-    public int generateIdProduct() {
-        return id++;
-    }
+    public static int generateIdProduct() {
+            int idToCompare = 1;
+            for (int i = 0; i < Inventory.getAllProducts().size(); i++) {
+                if (idToCompare < Inventory.getAllProducts().get(i).getId()) {
+                    idToCompare = Inventory.getAllProducts().get(i).getId();
+                }
+            }
+            idToCompare += 1;
+            return idToCompare;
+        }
 
     public static void addAssociatedPart(Part part) {
         if (part == null) {

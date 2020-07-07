@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.ir.Block;
+import sample.Model.InHouse;
 import sample.Model.Inventory;
 import sample.Model.Part;
 import sample.Model.Product;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static sample.Model.Inventory.getAllParts;
+import static sample.Model.Part.generatePartId;
 import static sample.View_Controller.MainScreenController.*;
 
 /*
@@ -197,6 +199,7 @@ public class productController implements Initializable {
 
     */
 
+    // method deletes the user's selection from the associated part list
     public void deleteAssocPartButtonHandler(ActionEvent actionEvent) {
         Part deletePart = tableViewAssocParts.getSelectionModel().getSelectedItem();
         Product.deleteAssociatedPart(deletePart);
@@ -204,8 +207,26 @@ public class productController implements Initializable {
 
     }
 
-    public void saveButtonProductHandler(ActionEvent actionEvent) {
+    public void saveButtonProductHandler(ActionEvent actionEvent) throws IOException {
+        String name = nameProduct.getText();
+        double price = Double.parseDouble(priceProduct.getText());
+        int stock = Integer.parseInt(invProduct.getText());
+        int min = Integer.parseInt(minInvProduct.getText());
+        int max = Integer.parseInt(maxInvProduct.getText());
+        int indexPart = getIndexModifyProduct();
 
+        Product newModProduct = new Product(productId, name, price, stock, min, max);
+        Inventory.updateProduct(indexPart, newModProduct);
+
+        // Exit to main screen below
+        Stage stageMainScreen;
+        Parent root;
+        stageMainScreen = (Stage) saveButtonProduct.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stageMainScreen.setScene(scene);
+        stageMainScreen.show();
     }
 
     public void cancelButtonProductHandler(ActionEvent actionEvent) throws IOException {

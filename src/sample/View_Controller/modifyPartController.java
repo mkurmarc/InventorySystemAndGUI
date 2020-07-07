@@ -137,7 +137,6 @@ public class modifyPartController implements Initializable {
     public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException, NumberFormatException {
         try
         {
-            int idPart = getIndexModifyPart();
             String name = nameModifyPartField.getText();
             double price = Double.parseDouble(priceCostModifyField.getText());
             int stock = Integer.parseInt(inventoryModifyPartField.getText());
@@ -150,7 +149,7 @@ public class modifyPartController implements Initializable {
         */
             if (isInHouse) {
                 int machineId = Integer.parseInt(variableModifyPartField.getText());
-                InHouse inHousePart = new InHouse(idPart, name, price, stock, min, max, machineId);
+                InHouse inHousePart = new InHouse(partID, name, price, stock, min, max, machineId);
                 Inventory.updatePart(indexPart, inHousePart);
             }
         /*
@@ -159,7 +158,7 @@ public class modifyPartController implements Initializable {
         */
             if (!isInHouse) {
                 String companyName = variableModifyPartField.getText();
-                Outsourced outsourcedPart = new Outsourced(idPart, name, price, stock, min, max, companyName);
+                Outsourced outsourcedPart = new Outsourced(partID, name, price, stock, min, max, companyName);
                 Inventory.updatePart(indexPart, outsourcedPart);
             }
             // exit to main screen - code block below
