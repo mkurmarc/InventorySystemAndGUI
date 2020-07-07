@@ -69,8 +69,27 @@ public class addPartController implements Initializable {
     @FXML
     private ToggleGroup sourceOfPart;
 
-    // Local variables below
+    // not FXML variables below
     boolean isInHouse;
+    int partIdGenerated = 4;
+
+    // return void means i will place this function inside of the constructor as the first line. It will change the
+    // partIdGenerated to a non-duplicate id
+    /*
+    private void generatePartId() {
+
+
+        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
+            if (partIdGenerated == Inventory.getAllParts().get(i).getIdPart()) {
+                partIdGenerated += 1;
+                break;
+            } else {
+                return partIdGenerated;
+            }
+        }
+
+    }
+*/
 
     // When in-house radio button is pushed, changes variable field and label
     @FXML
@@ -117,7 +136,7 @@ public class addPartController implements Initializable {
         try
         {
             // need method to create ID #s and check against the observable list
-            int idPart = 1;
+            int idPart = Part.generatePartId();
             String name = namePartField.getText();
             double price = Double.parseDouble(priceCostPartField.getText());
             int stock = Integer.parseInt(inventoryPartField.getText());

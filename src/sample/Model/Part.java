@@ -7,6 +7,8 @@ package sample.Model;
 
  */
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 public abstract class Part {
 
     private int idPart;
@@ -24,12 +26,26 @@ public abstract class Part {
         this.maxPart = maxPart;
     }
 
-    // TRY ADDING THIS TO ARGUMENT FOR CREATING NEW PART. Method below sets part ID and increments it one afterwards
-    public int generateNewIdPart() {
-        return idPart++;
+    /*
+    This method compares local variable int to every part ID in the all parts list to find the highest ID. The
+    highest ID + 1 is returned. 
+    */
+
+    public static int generatePartId() {
+        int idToCompare = 1;
+        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
+            if (idToCompare < Inventory.getAllParts().get(i).getIdPart()) {
+                idToCompare = Inventory.getAllParts().get(i).getIdPart();
+            }
+        }
+        idToCompare += 1;
+        return idToCompare;
     }
 
-    // Setters and Getters
+
+    /*
+     Setters and Getters below
+     */
     public int getIdPart() {
         return idPart;
     }

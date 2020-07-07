@@ -1,6 +1,5 @@
 package sample.View_Controller;
 
-import javafx.beans.binding.When;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -107,10 +106,9 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPriceColumn;
 
-    private static Part modPart;
     private static int indexModifyPart;
     private static int indexModifyProduct;
-    private Product productToModify;
+    public static boolean isModifyProductScene;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -199,7 +197,7 @@ public class MainScreenController implements Initializable {
     // When modify button in part area on main screen is clicked, the method below handles it
     @FXML
     public void partsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
-        modPart = partsTableView.getSelectionModel().getSelectedItem();
+        Part modPart = partsTableView.getSelectionModel().getSelectedItem();
         if (modPart != null) {
             indexModifyPart = getAllParts().indexOf(modPart);
             Parent modParts = FXMLLoader.load(getClass().getResource("modifyPart.fxml"));
@@ -208,36 +206,10 @@ public class MainScreenController implements Initializable {
             window.setScene(scene);
             window.show();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one product from the table above.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one part from the table above.");
             alert.setTitle("Error Dialogue Box");
             alert.showAndWait();
         }
-
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("modifyPart.fxml"));
-//        loader.load();
-/*
-        if((partsTableView.getSelectionModel().getSelectedItem()) instanceof InHouse) {
-
-//            modifyPartController.changeLabelField("Machine ID", "Mach ID");
-            modifyPartController MPController = loader.getController();
-            MPController.sendInHousePart((InHouse) partsTableView.getSelectionModel().getSelectedItem());
-//            MPController.sendPart(partsTableView.getSelectionModel().getSelectedItem());
-        }
-        if ((partsTableView.getSelectionModel().getSelectedItem()) instanceof Outsourced){
-//            modifyPartController.changeLabelField("Company Name", "Comp Nm");
-            modifyPartController MPController = loader.getController();
-            MPController.sendPart((Outsourced) partsTableView.getSelectionModel().getSelectedItem());
-        }
- */
-/*
-        // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        // Now that the scene is loaded, set the scene to the stage
-        stage.setScene(new Scene(scene));
-        stage.showAndWait();
- */
     }
 
     /*
@@ -250,6 +222,7 @@ public class MainScreenController implements Initializable {
 
     @FXML
     public void productsAddButtonHandler(ActionEvent actionEvent) throws IOException {
+        isModifyProductScene = false;
         // Uses button to find source and casts it into a Stage. Also, next window is loaded onto scene.
         stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
@@ -262,13 +235,21 @@ public class MainScreenController implements Initializable {
     // When modify button in product area on main screen is clicked, the method below handles it
     @FXML
     public void productsModifyButtonHandler(ActionEvent actionEvent) throws IOException {
-        productToModify = productsTableView.getSelectionModel().getSelectedItem();
-        indexModifyProduct = getAllProducts().indexOf(productToModify);
-        Parent modProducts = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
-        Scene scene = new Scene(modProducts);
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        isModifyProductScene = true;
+        Product productToModify = productsTableView.getSelectionModel().getSelectedItem();
+        if (productToModify != null) {
+            indexModifyProduct = getAllProducts().indexOf(productToModify);
+            Parent modProducts = FXMLLoader.load(getClass().getResource("addModifyProduct.fxml"));
+            Scene scene = new Scene(modProducts);
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select one product from the table above.");
+            alert.setTitle("Error Dialogue Box");
+            alert.showAndWait();
+        }
+
 
 //        modPart = partsTableView.getSelectionModel().getSelectedItem();
 //        indexModifyProduct = getAllParts().indexOf(modPart);

@@ -105,3 +105,10 @@ public class Product {
         return this.max;
     }
 }
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
