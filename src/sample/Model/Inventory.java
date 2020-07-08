@@ -40,21 +40,19 @@ public class Inventory implements Initializable {
     }
 
     public static Part lookupPart(int partId) {
-//        boolean isFound = false;
         Part checkPart = null;
         int checkPartID;
         for(int i=0; i < (allParts.size()); i++) {
             checkPart = allParts.get(i);
             checkPartID = checkPart.getIdPart();
             if(checkPartID == partId) {
-//                isFound = true;
                 break;
             }
         }
             return checkPart;
     }
 
-    public Product lookupProduct(int productId) {
+    public static Product lookupProduct(int productId) {
         Product checkProduct = null;
         int checkProductID;
         for(int i=0; i < (allProducts.size()); i++) {

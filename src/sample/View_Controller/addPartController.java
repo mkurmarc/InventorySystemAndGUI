@@ -9,14 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static sample.Model.Outsourced.validOutsourcedPart;
-import static sample.Model.Part.partInputErrorMessageOutsourced;
 
 
 
@@ -70,26 +67,32 @@ public class addPartController implements Initializable {
     private ToggleGroup sourceOfPart;
 
     // not FXML variables below
-    boolean isInHouse;
-    int partIdGenerated = 4;
+    boolean isInHouse = false;
+    String errorMsg = "";
 
-    // return void means i will place this function inside of the constructor as the first line. It will change the
-    // partIdGenerated to a non-duplicate id
-    /*
-    private void generatePartId() {
-
-
-        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
-            if (partIdGenerated == Inventory.getAllParts().get(i).getIdPart()) {
-                partIdGenerated += 1;
-                break;
-            } else {
-                return partIdGenerated;
+    public static boolean isInteger(String checkStr) {
+        if (checkStr == null) {
+            return false;
+        }
+        int strLength = checkStr.length();
+        if ( strLength == 0) {
+            return false;
+        }
+        int i = 0;
+        if (checkStr.charAt(0) == '-') {
+            if (strLength == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < strLength; i++) {
+            char x = checkStr.charAt(i);
+            if (x < '0' || x > '9') {
+                return false;
             }
         }
-
+        return true;
     }
-*/
 
     // When in-house radio button is pushed, changes variable field and label
     @FXML
@@ -133,30 +136,63 @@ public class addPartController implements Initializable {
     // Saves data when save button is clicked
     @FXML
     public void saveButtonActionHandler(ActionEvent actionEvent) throws IOException {
-        try
-        {
-            // need method to create ID #s and check against the observable list
-            int idPart = Part.generatePartId();
-            String name = namePartField.getText();
-            double price = Double.parseDouble(priceCostPartField.getText());
-            int stock = Integer.parseInt(inventoryPartField.getText());
-            int min = Integer.parseInt(minPartField.getText());
-            int max = Integer.parseInt(maxPartField.getText());
-            String variableValue = variableField.getText();
-            String errorMsg = "";
 
-            // need to add another condition to check if part is valid
-            if (!isInHouse) { //validOutsourcedPart(name, price, stock, min, max, variableValue, errorMsg) &&
-                // Below save data from fields to respective database if the part data entered is valid
-                Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, variableValue);
-                Inventory.addPart(newPart);
+        // need method to create ID #s and check against the observable list
+        int idPart = Part.generatePartId();
+        String name = namePartField.getText();
+        double price = Double.parseDouble(priceCostPartField.getText());
+        int stock = Integer.parseInt(inventoryPartField.getText());
+        int min = Integer.parseInt(minPartField.getText());
+        int max = Integer.parseInt(maxPartField.getText());
+        String variableValue = variableField.getText();
+        boolean partAddedSuccessfully = false;
+        String errorMessage = "";
+
+        if (name.equals("")) {
+            errorMessage = "Name field is empty. ";
+        }
+        if (price == 0) {
+            errorMessage += "Price field must be grater than 0. ";
+        }
+        // if (price ) {}
+        if (!(stock >= 1)) {
+            errorMessage += "Inventory must be more than 0. ";
+        }
+        if (!(min < max)) {
+            errorMessage += "Minimum must be less than the maximum. ";
+        }
+        if (!(stock <= max)) {
+            errorMessage += "Inventory must be lower than maximum. ";
+        }
+        if (!(stock >= min)) {
+            errorMessage += "Inventory must be greater than minimum. ";
+        }
+
+        if (!isInHouse) {
+            if (variableValue.equals("")) {
+                errorMessage += "Company name field is empty. ";
             }
-            // need to add another condition to check if part is valid
-            if (isInHouse) { // InHouse.validInHousePart(name, price, stock, min, max, Integer.parseInt(variableValue), errorMsg) &&
-                // Below save data from fields to respective database if the part data entered is valid
-                InHouse newPart = new InHouse(idPart, name, price, stock, min, max, Integer.parseInt(variableValue));
-                Inventory.addPart(newPart);
+        } else {
+            if (variableValue.equals("")) {
+                errorMessage += "Machine ID field is empty. ";
             }
+        }
+
+        if (!errorMessage.equals("")) {
+            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            alert1.setTitle("Error Dialogue Box");
+            alert1.setContentText(errorMessage);
+            alert1.showAndWait();
+        }
+
+        if (errorMessage.equals("")) {
+            // Below save data from fields to respective database if the part data entered is valid
+            Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, variableValue);
+            Inventory.addPart(newPart);
+            partAddedSuccessfully = true;
+        }
+
+        if (partAddedSuccessfully) {
             // Exit to main screen below
             Stage stageMainScreen;
             Parent root;
@@ -167,14 +203,37 @@ public class addPartController implements Initializable {
             stageMainScreen.setScene(scene);
             stageMainScreen.show();
         }
-        catch (NumberFormatException e)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialogue Box");
-            alert.setContentText("Please enter the correct formats for each text field.");
-            alert.showAndWait();
-        }
     }
+
+
+/*
+        // need to add another condition to check if part is valid
+        if (InHouse.validInHousePart(name, price, stock, min, max, Integer.parseInt(variableValue)) && isInHouse) {
+            // Below save data from fields to respective database if the part data entered is valid
+            InHouse newPart = new InHouse(idPart, name, price, stock, min, max, Integer.parseInt(variableValue));
+            Inventory.addPart(newPart);
+            partAddedSuccessfully = true;
+        }
+
+        if(!(validOutsourcedPart(name, price, stock, min, max, variableValue)) && !isInHouse) {
+            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            alert1.setTitle("Error Dialogue Box");
+            alert1.setContentText("Please make sure the inventory is between min and max. ");
+            alert1.showAndWait();
+        }
+
+        if (!(InHouse.validInHousePart(name, price, stock, min, max, Integer.parseInt(variableValue))) && isInHouse) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Error Dialogue Box");
+            alert2.setContentText("Please make sure the inventory is between min and max. ");
+            alert2.showAndWait();
+        }
+
+ */
+
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

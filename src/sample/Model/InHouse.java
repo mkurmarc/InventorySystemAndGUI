@@ -7,6 +7,8 @@ package sample.Model;
 
  */
 
+import sample.View_Controller.addPartController;
+
 public class InHouse extends Part {
     private int machineId;
 
@@ -17,17 +19,30 @@ public class InHouse extends Part {
     }
 
     // Method below validates inHouse parts and prints error message if not valid
-    public static boolean validInHousePart(String name, double price, int stock, int min, int max, int machID,
-                                              String errorMessage) {
-        if (!name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max && stock >= min
-                && machID != 0) {
-            return true;
+    public static boolean validInHousePart(String name, double price, int stock, int min, int max, int machID) {
+        boolean isCorrect = true;
+        if (name.equals("")){
+            isCorrect = false;
         }
-        else {
-            errorMessage = partInputErrorMessageInHouse(name, price, stock, min, max, machID, errorMessage);
-            System.out.println(errorMessage);
-            return false;
+        if (price == 0) {
+            isCorrect = false;
         }
+        if (!(stock >= 1)) {
+            isCorrect = false;
+        }
+        if (!(min < max)) {
+            isCorrect =false;
+        }
+        if (!(stock <= max)) {
+            isCorrect = false;
+        }
+        if (!(stock >= min)) {
+            isCorrect = false;
+        }
+        if (machID == 0) { // || addPartController.isInteger(machID)
+            isCorrect = false;
+        }
+        return isCorrect;
     }
 
     public void setMachineId(int machineId) {
