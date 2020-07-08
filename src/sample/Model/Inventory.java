@@ -3,11 +3,7 @@ package sample.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import sample.Model.Part;
-import sample.Model.Product;
-
 import java.net.URL;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 /*
@@ -40,21 +36,19 @@ public class Inventory implements Initializable {
     }
 
     public static Part lookupPart(int partId) {
-//        boolean isFound = false;
         Part checkPart = null;
         int checkPartID;
         for(int i=0; i < (allParts.size()); i++) {
             checkPart = allParts.get(i);
             checkPartID = checkPart.getIdPart();
             if(checkPartID == partId) {
-//                isFound = true;
                 break;
             }
         }
             return checkPart;
     }
 
-    public Product lookupProduct(int productId) {
+    public static Product lookupProduct(int productId) {
         Product checkProduct = null;
         int checkProductID;
         for(int i=0; i < (allProducts.size()); i++) {
@@ -133,3 +127,9 @@ public class Inventory implements Initializable {
         return allProducts;
     }
 }
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */

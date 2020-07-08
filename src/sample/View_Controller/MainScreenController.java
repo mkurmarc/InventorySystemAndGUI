@@ -11,12 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sample.Model.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import static sample.Model.Inventory.getAllParts;
 import static sample.Model.Inventory.getAllProducts;
 
@@ -136,11 +134,13 @@ public class MainScreenController implements Initializable {
     }
 
     //  This handles the search button on the "part" side of the main screen.
+    @FXML
     public void partsSearchButtonHandler(ActionEvent actionEvent) throws IOException {
         String searchText = partsSearchField.getText();
         partsTableView.setItems(Inventory.lookupPart(searchText));
     }
 
+    @FXML
     public void partsAddButtonHandler(ActionEvent actionEvent) throws IOException {
         Stage stageAddPartOutsourcedScreen;
         Parent root;
@@ -250,7 +250,6 @@ public class MainScreenController implements Initializable {
             alert.showAndWait();
         }
     }
-
 
     @FXML
     public void productsDeleteButtonHandler(ActionEvent actionEvent) {

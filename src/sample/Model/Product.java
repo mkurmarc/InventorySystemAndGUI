@@ -3,8 +3,6 @@ package sample.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Collection;
-
 /*
     @AUTHOR
     Marc Rios

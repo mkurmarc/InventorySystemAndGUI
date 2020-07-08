@@ -7,8 +7,6 @@ package sample.Model;
 
  */
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 public abstract class Part {
 
     private int idPart;
@@ -91,53 +89,10 @@ public abstract class Part {
     public void setMaxPart(int maxPart) {
         this.maxPart = maxPart;
     }
+}
+ /*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
 
-    // Method is for In-House parts only. If the part input is not valid, this method returns the appropriate
-    // error message
-    public static String partInputErrorMessageInHouse(String name, double price, int stock, int min, int max, int machineId, String errorMsg) {
-        if (name.equals("")) {
-            errorMsg = errorMsg + ("The name field is empty. ");
-        }
-        if (price == 0) {
-            errorMsg = errorMsg + ("The price must be more than 0. Example: 12.74 ");
-        }
-        if (stock < 1) {
-            errorMsg = errorMsg + ("The stock must greater than 0. ");
-        }
-        if (min > max) {
-            errorMsg = errorMsg + ("The minimum must be less than the maximum. ");
-        }
-        if (stock > max || stock < min) {
-            errorMsg = errorMsg + ("The inventory must be between the minimum and maximum values. ");
-        }
-        if (machineId == 0) {
-            errorMsg = errorMsg + ("The machine ID field must be more than 0. ");
-        }
-        return errorMsg;
-    }
-
-        // This method for Outsourced parts only. If the part input is not valid, this method returns the appropriate
-        // error message
-        public static String partInputErrorMessageOutsourced (String name, double price, int stock, int min, int max,
-                                                              String compName, String errorMsg) {
-            if (name.equals("")) {
-                errorMsg += ("The name field is empty. ");
-            }
-            if (price == 0) {
-                errorMsg += ("The price must be more than 0. ");
-            }
-            if (stock < 1) {
-                errorMsg += ("The inventory must be more than 0. ");
-            }
-            if (min > max) {
-                errorMsg += ("The minimum must be less than the maximum. ");
-            }
-            if (stock > max || stock < min) {
-                errorMsg += ("The inventory must be between the minimum and maximum values. ");
-            }
-            if (compName.equals("")) {
-                errorMsg += ("The company name is empty. ");
-            }
-            return errorMsg;
-        }
-    }
+ */
