@@ -154,7 +154,6 @@ public class addPartController implements Initializable {
         if (price == 0) {
             errorMessage += "Price field must be grater than 0. ";
         }
-        // if (price ) {}
         if (!(stock >= 1)) {
             errorMessage += "Inventory must be more than 0. ";
         }
@@ -181,19 +180,28 @@ public class addPartController implements Initializable {
         if (!errorMessage.equals("")) {
             Alert alert1 = new Alert(Alert.AlertType.ERROR);
             alert1.setTitle("Error Dialogue Box");
-            alert1.setContentText(errorMessage);
+            alert1.setContentText(errorMessage); // this errorMessage is the cumulative string response to errors
             alert1.showAndWait();
         }
-
+        /*
+         if block below checks if errorMessage is empty because if it is empty, that means no errors were found in
+         the user's data entry
+        */
         if (errorMessage.equals("")) {
-            // Below save data from fields to respective database if the part data entered is valid
-            Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, variableValue);
-            Inventory.addPart(newPart);
-            partAddedSuccessfully = true;
+            if (isInHouse) {
+                InHouse newPartInHouse = new InHouse(idPart, name, price, stock, min, max, Integer.parseInt(variableValue));
+                Inventory.addPart(newPartInHouse);
+                partAddedSuccessfully = true;
+            }
+            if (!isInHouse) {
+                // Below save data from fields to respective database if the part data entered is valid
+                Outsourced newPart = new Outsourced(idPart, name, price, stock, min, max, variableValue);
+                Inventory.addPart(newPart);
+                partAddedSuccessfully = true;
+            }
         }
-
+        // Exit to main screen below if a part was added successfully
         if (partAddedSuccessfully) {
-            // Exit to main screen below
             Stage stageMainScreen;
             Parent root;
             stageMainScreen = (Stage) savePartButton.getScene().getWindow();
@@ -204,36 +212,6 @@ public class addPartController implements Initializable {
             stageMainScreen.show();
         }
     }
-
-
-/*
-        // need to add another condition to check if part is valid
-        if (InHouse.validInHousePart(name, price, stock, min, max, Integer.parseInt(variableValue)) && isInHouse) {
-            // Below save data from fields to respective database if the part data entered is valid
-            InHouse newPart = new InHouse(idPart, name, price, stock, min, max, Integer.parseInt(variableValue));
-            Inventory.addPart(newPart);
-            partAddedSuccessfully = true;
-        }
-
-        if(!(validOutsourcedPart(name, price, stock, min, max, variableValue)) && !isInHouse) {
-            Alert alert1 = new Alert(Alert.AlertType.ERROR);
-            alert1.setTitle("Error Dialogue Box");
-            alert1.setContentText("Please make sure the inventory is between min and max. ");
-            alert1.showAndWait();
-        }
-
-        if (!(InHouse.validInHousePart(name, price, stock, min, max, Integer.parseInt(variableValue))) && isInHouse) {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Error Dialogue Box");
-            alert2.setContentText("Please make sure the inventory is between min and max. ");
-            alert2.showAndWait();
-        }
-
- */
-
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

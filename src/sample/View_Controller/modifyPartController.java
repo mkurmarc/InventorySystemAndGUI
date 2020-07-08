@@ -135,33 +135,88 @@ public class modifyPartController implements Initializable {
     // method below handles the save button when clicked
     @FXML
     public void saveButtonModifyHandler(ActionEvent actionEvent) throws IOException, NumberFormatException {
-        try
-        {
-            String name = nameModifyPartField.getText();
-            double price = Double.parseDouble(priceCostModifyField.getText());
-            int stock = Integer.parseInt(inventoryModifyPartField.getText());
-            int min = Integer.parseInt(minModifyPartField.getText());
-            int max = Integer.parseInt(maxModifyPartField.getText());
-            int indexPart = getIndexModifyPart();
-        /*
-         This if statement checks if the part is in house, and if it is, it will create an in house part and update
-         the inventory
-        */
-            if (isInHouse) {
-                int machineId = Integer.parseInt(variableModifyPartField.getText());
-                InHouse inHousePart = new InHouse(partID, name, price, stock, min, max, machineId);
-                Inventory.updatePart(indexPart, inHousePart);
-            }
+        String name = nameModifyPartField.getText();
+        double price = Double.parseDouble(priceCostModifyField.getText());
+        int stock = Integer.parseInt(inventoryModifyPartField.getText());
+        int min = Integer.parseInt(minModifyPartField.getText());
+        int max = Integer.parseInt(maxModifyPartField.getText());
+        int indexPart = getIndexModifyPart();
+        boolean partModifiedSuccessfully = false;
+        String errorMessage = "";
+
+        if (name.equals("")) {
+            errorMessage = "Name field is empty. ";
+        }
+        if (price == 0) {
+            errorMessage += "Price field must be grater than 0. ";
+        }
+        if (!(stock >= 1)) {
+            errorMessage += "Inventory must be more than 0. ";
+        }
+        if (!(min < max)) {
+            errorMessage += "Minimum must be less than the maximum. ";
+        }
+        if (!(stock <= max)) {
+            errorMessage += "Inventory must be lower than maximum. ";
+        }
+        if (!(stock >= min)) {
+            errorMessage += "Inventory must be greater than minimum. ";
+        }
+
+
         /*
          This if statement checks if the part is in house, and if it is, it will create an outsourced part and update
          the inventory
         */
-            if (!isInHouse) {
-                String companyName = variableModifyPartField.getText();
+        if (!isInHouse) {
+            String companyName = variableModifyPartField.getText();
+            if (companyName.equals("")) {
+                errorMessage += "Company name field is empty. ";
+            }
+            if (!errorMessage.equals("")) {
+                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                alert1.setTitle("Error Dialogue Box");
+                alert1.setContentText(errorMessage); // this errorMessage is the cumulative string response to errors
+                alert1.showAndWait();
+            }
+            if (errorMessage.equals("")) {
                 Outsourced outsourcedPart = new Outsourced(partID, name, price, stock, min, max, companyName);
                 Inventory.updatePart(indexPart, outsourcedPart);
+                partModifiedSuccessfully = true;
             }
-            // exit to main screen - code block below
+        }
+        /*
+         This if statement checks if the part is in house, and if it is, it will create an in house part and update
+         the inventory
+        */
+        try {
+            if (isInHouse) {
+                int machineId = Integer.parseInt(variableModifyPartField.getText());
+                if (machineId == 0) {
+                    errorMessage += "Machine ID field is empty. ";
+                }
+                if (!errorMessage.equals("")) {
+                    Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                    alert1.setTitle("Error Dialogue Box");
+                    alert1.setContentText(errorMessage); // this errorMessage is the cumulative string response to errors
+                    alert1.showAndWait();
+                }
+                if (errorMessage.equals("")) {
+                    InHouse inHousePart = new InHouse(partID, name, price, stock, min, max, machineId);
+                    Inventory.updatePart(indexPart, inHousePart);
+                    partModifiedSuccessfully = true;
+                }
+            }
+        } catch (NumberFormatException e) {
+            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            alert1.setTitle("Error Dialogue Box");
+            alert1.setContentText("Machine ID must be a whole number. "); // this errorMessage is the cumulative string response to errors
+            alert1.showAndWait();
+        }
+
+
+        // Exit to main screen below if a part was added successfully
+        if (partModifiedSuccessfully) {
             Stage stageMainScreen;
             Parent root;
             stageMainScreen = (Stage) saveModifyPartButton.getScene().getWindow();
@@ -170,13 +225,6 @@ public class modifyPartController implements Initializable {
             Scene scene = new Scene(root);
             stageMainScreen.setScene(scene);
             stageMainScreen.show();
-        }
-        catch (NumberFormatException e)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialogue Box");
-            alert.setContentText("Please enter the correct formats for each text field.");
-            alert.showAndWait();
         }
     }
 
@@ -202,17 +250,4 @@ public class modifyPartController implements Initializable {
             stageMainScreen.show();
         }
     }
-
-    // Method below validates in-house parts and prints error message if not valid
-    public boolean validInHousePart(String name, double price, int stock, int min, int max,
-                                    int machineId, String errorMsg) {
-        if (name.equals("") && price != 0 && stock >= 1 && min < max && stock <= max &&
-                stock >= min && machineId != 0) {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
 }
