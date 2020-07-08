@@ -8,16 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.ir.Block;
 import sample.Model.*;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import static sample.Model.InHouse.validInHousePart;
-import static sample.Model.Part.*;
 import static sample.View_Controller.MainScreenController.getIndexModifyPart;
 
 /*
@@ -163,7 +158,6 @@ public class modifyPartController implements Initializable {
             errorMessage += "Inventory must be greater than minimum. ";
         }
 
-
         /*
          This if statement checks if the part is in house, and if it is, it will create an outsourced part and update
          the inventory
@@ -210,7 +204,7 @@ public class modifyPartController implements Initializable {
         } catch (NumberFormatException e) {
             Alert alert1 = new Alert(Alert.AlertType.ERROR);
             alert1.setTitle("Error Dialogue Box");
-            alert1.setContentText("Machine ID must be a whole number. "); // this errorMessage is the cumulative string response to errors
+            alert1.setContentText("Machine ID must be a whole number. ");
             alert1.showAndWait();
         }
 
@@ -251,3 +245,10 @@ public class modifyPartController implements Initializable {
         }
     }
 }
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */

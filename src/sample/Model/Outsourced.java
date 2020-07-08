@@ -1,5 +1,12 @@
 package sample.Model;
 
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
+
 public class Outsourced extends Part {
 
     private String companyName;
@@ -17,3 +24,10 @@ public class Outsourced extends Part {
         this.companyName = companyName;
     }
 }
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */

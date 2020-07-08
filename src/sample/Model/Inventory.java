@@ -3,11 +3,7 @@ package sample.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import sample.Model.Part;
-import sample.Model.Product;
-
 import java.net.URL;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 /*
@@ -131,3 +127,9 @@ public class Inventory implements Initializable {
         return allProducts;
     }
 }
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */

@@ -9,19 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.ir.Block;
-import sample.Model.InHouse;
 import sample.Model.Inventory;
 import sample.Model.Part;
 import sample.Model.Product;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import static sample.Model.Inventory.getAllParts;
-import static sample.Model.Part.generatePartId;
 import static sample.View_Controller.MainScreenController.*;
 
 /*
@@ -152,11 +147,13 @@ public class productController implements Initializable {
 
     }
 
+    @FXML
     public void searchButtonProductHandler(ActionEvent actionEvent) {
         String searchText = searchProductField.getText();
         allPartsTableView.setItems(Inventory.lookupPart(searchText));
     }
 
+    @FXML
     public void addButtonProductHandler(ActionEvent actionEvent) {
         // line below turns user selection into a part object
         Part partAddToAssociated = allPartsTableView.getSelectionModel().getSelectedItem();
@@ -180,7 +177,7 @@ public class productController implements Initializable {
             }
             // the if statement adds user selected part to associatedPart list if it is not a duplicate part
             if (!duplicateItem) {
-                Product.getAllAssociatedParts().add(partAddToAssociated);
+                Product.addAssociatedPart(partAddToAssociated);
             } else {
                 // alerts user if selected part is a duplicate
                 Alert alert = new Alert(Alert.AlertType.ERROR, "\nPart selected is already associated with" +
@@ -200,6 +197,7 @@ public class productController implements Initializable {
     */
 
     // method deletes the user's selection from the associated part list
+    @FXML
     public void deleteAssocPartButtonHandler(ActionEvent actionEvent) {
         Part deletePart = tableViewAssocParts.getSelectionModel().getSelectedItem();
         Product.deleteAssociatedPart(deletePart);
@@ -207,6 +205,7 @@ public class productController implements Initializable {
 
     }
 
+    @FXML
     public void saveButtonProductHandler(ActionEvent actionEvent) throws IOException {
         String name = nameProduct.getText();
         double price = Double.parseDouble(priceProduct.getText());
@@ -214,28 +213,78 @@ public class productController implements Initializable {
         int min = Integer.parseInt(minInvProduct.getText());
         int max = Integer.parseInt(maxInvProduct.getText());
         int indexPart;
+        boolean productAddedSuccessfully = false;
+        String errorMessage = "";
 
-        if (isModifyProductScene) {
-            indexPart = getIndexModifyProduct();
-            Product newModProduct = new Product(productId, name, price, stock, min, max);
-            Inventory.updateProduct(indexPart, newModProduct);
-        } else {
-            Product newModProduct = new Product(Product.generateIdProduct(), name, price, stock, min, max);
-            Inventory.addProduct(newModProduct);
+        // series of if statements that creates an error message if there are any errors with the user's input
+        if (name.equals("")) {
+            errorMessage = "Name field is empty. ";
         }
-        // exit to main screen below
-        Stage stageMainScreen;
-        Parent root;
-        stageMainScreen = (Stage) saveButtonProduct.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
-        root = loader.load();
-        Scene scene = new Scene(root);
-        stageMainScreen.setScene(scene);
-        stageMainScreen.show();
-        // resets the boolean to false to ensure it works next time user wants to add or modify a product
-        isModifyProductScene = false;
+        if (price == 0) {
+            errorMessage += "Price field must be grater than 0. ";
+        }
+        if (!(stock >= 1)) {
+            errorMessage += "Inventory must be more than 0. ";
+        }
+        if (!(min < max)) {
+            errorMessage += "Minimum must be less than the maximum. ";
+        }
+        if (!(stock <= max)) {
+            errorMessage += "Inventory must be lower than maximum. ";
+        }
+        if (!(stock >= min)) {
+            errorMessage += "Inventory must be greater than minimum. ";
+        }
+
+        for (int i = 0; i < Product.getAllAssociatedParts().size(); i++) {
+            double total = Product.getAllAssociatedParts().get(i).getPricePart();
+            total += total;
+            // checks if associate parts price total is more than product price
+            if(total > price) {
+                errorMessage += "The associate parts total price is more than product price.";
+                break;
+            }
+        }
+
+        if (!errorMessage.equals("")) {
+            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            alert1.setTitle("Error Dialogue Box");
+            alert1.setContentText(errorMessage); // this errorMessage is the cumulative string response to errors
+            alert1.showAndWait();
+        }
+        /*
+         if block below checks if errorMessage is empty because if it is empty, that means no errors were found in
+         the user's data entry
+        */
+        if(errorMessage.equals("")) {
+            if (isModifyProductScene) { // block below is modifying product
+                indexPart = getIndexModifyProduct();
+                Product newModProduct = new Product(productId, name, price, stock, min, max);
+                Inventory.updateProduct(indexPart, newModProduct);
+                productAddedSuccessfully = true;
+            }
+            if(!isModifyProductScene) { // this is adding product to list
+                Product newModProduct = new Product(Product.generateIdProduct(), name, price, stock, min, max);
+                Inventory.addProduct(newModProduct);
+                productAddedSuccessfully = true;
+            }
+        }
+        // Exit to main screen below if a part was added successfully
+        if (productAddedSuccessfully) {
+            Stage stageMainScreen;
+            Parent root;
+            stageMainScreen = (Stage) saveButtonProduct.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainScreen.fxml"));
+            root = loader.load();
+            Scene scene = new Scene(root);
+            stageMainScreen.setScene(scene);
+            stageMainScreen.show();
+            // resets the boolean to false to ensure it works next time user wants to add or modify a product
+            isModifyProductScene = false;
+        }
     }
 
+    @FXML
     public void cancelButtonProductHandler(ActionEvent actionEvent) throws IOException {
         // Created a confirmation alert when the cancel button is clicked to prevent accidental information loss.
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will clear all text field values. " +

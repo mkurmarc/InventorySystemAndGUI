@@ -14,14 +14,14 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
 
-
+ */
 
 public class addPartController implements Initializable {
-
-    // Variables for switching screens later
-    Stage stage;
-    Parent scene;
 
     // All FXML elements listed below for addPart.fxml
     @FXML
@@ -68,31 +68,6 @@ public class addPartController implements Initializable {
 
     // not FXML variables below
     boolean isInHouse = false;
-    String errorMsg = "";
-
-    public static boolean isInteger(String checkStr) {
-        if (checkStr == null) {
-            return false;
-        }
-        int strLength = checkStr.length();
-        if ( strLength == 0) {
-            return false;
-        }
-        int i = 0;
-        if (checkStr.charAt(0) == '-') {
-            if (strLength == 1) {
-                return false;
-            }
-            i = 1;
-        }
-        for (; i < strLength; i++) {
-            char x = checkStr.charAt(i);
-            if (x < '0' || x > '9') {
-                return false;
-            }
-        }
-        return true;
-    }
 
     // When in-house radio button is pushed, changes variable field and label
     @FXML
@@ -148,6 +123,7 @@ public class addPartController implements Initializable {
         boolean partAddedSuccessfully = false;
         String errorMessage = "";
 
+        // series of if statements that creates an error message if there are any errors with the user's input
         if (name.equals("")) {
             errorMessage = "Name field is empty. ";
         }
@@ -218,3 +194,10 @@ public class addPartController implements Initializable {
 
     }
 }
+
+/*
+    @AUTHOR
+    Marc Rios
+    ID: 787989
+
+ */
