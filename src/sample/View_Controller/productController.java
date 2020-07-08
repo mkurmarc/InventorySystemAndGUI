@@ -235,6 +235,9 @@ public class productController implements Initializable {
         if (!(stock >= min)) {
             errorMessage += "Inventory must be greater than minimum. ";
         }
+        if(Product.getAllAssociatedParts().size() == 0) {
+            errorMessage += "Product must have at least one associate part. ";
+        }
 
         for (int i = 0; i < Product.getAllAssociatedParts().size(); i++) {
             double total = Product.getAllAssociatedParts().get(i).getPricePart();

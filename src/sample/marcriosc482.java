@@ -22,12 +22,13 @@ public class marcriosc482 extends Application {
         primaryStage.setTitle("Inventory Manager");
         primaryStage.setScene(new Scene(root, 1050, 400));
         primaryStage.show();
+        root.requestFocus();
 
         // Creates default product
-        Product defaultProduct1 = new Product(100,"Grandpa CamBook Apple 15 inch", 1556.99, 6, 1, 500);
+        Product defaultProduct1 = new Product(100,"Grandpa CamBook Apple 15 inch", 2556.99, 6, 1, 500);
         Inventory.addProduct(defaultProduct1);
         // Creates default product
-        Product defaultProduct2 = new Product(101,"Samyoung Black Hole Smart Phone", 805.69, 12, 1, 500);
+        Product defaultProduct2 = new Product(101,"Samyoung Black Hole Smart Phone", 2805.69, 12, 1, 500);
         Inventory.addProduct(defaultProduct2);
         // Creates default product
         Product defaultProduct3 = new Product(102,"Bell Enspiron Notebook 17 inch", 1159.44, 15, 1, 500);
