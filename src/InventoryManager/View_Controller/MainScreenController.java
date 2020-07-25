@@ -1,4 +1,4 @@
-package sample.View_Controller;
+package InventoryManager.View_Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,13 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import sample.Model.*;
+import InventoryManager.Model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import static sample.Model.Inventory.getAllParts;
-import static sample.Model.Inventory.getAllProducts;
+import static InventoryManager.Model.Inventory.getAllParts;
+import static InventoryManager.Model.Inventory.getAllProducts;
 
 /*
     @AUTHOR

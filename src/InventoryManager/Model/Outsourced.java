@@ -1,4 +1,4 @@
-package sample.Model;
+package InventoryManager.Model;
 
 /*
     @AUTHOR

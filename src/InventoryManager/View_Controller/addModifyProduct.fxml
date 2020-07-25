@@ -9,7 +9,11 @@
 <!--        Marc Rios-->
 <!--        ID: 787989-->
 
-<SplitPane dividerPositions="0.3673012318029115" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="929.0" style="-fx-background-color: E0E0E0; -fx-border-style: solid; -fx-border-insets: 15; -fx-border-color: GRAY; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.View_Controller.productController">
+<SplitPane dividerPositions="0.3673012318029115" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity" prefHeight="523.0" prefWidth="929.0"
+           style="-fx-background-color: E0E0E0; -fx-border-style: solid; -fx-border-insets: 15; -fx-border-color: GRAY;
+           -fx-border-width: 2;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="InventoryManager.View_Controller.productController">
    <items>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>

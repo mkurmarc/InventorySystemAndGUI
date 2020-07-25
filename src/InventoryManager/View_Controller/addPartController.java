@@ -1,6 +1,6 @@
-package sample.View_Controller;
+package InventoryManager.View_Controller;
 
-import sample.Model.*;
+import InventoryManager.Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

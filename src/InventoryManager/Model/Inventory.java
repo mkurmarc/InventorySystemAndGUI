@@ -1,4 +1,4 @@
-package sample.Model;
+package InventoryManager.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

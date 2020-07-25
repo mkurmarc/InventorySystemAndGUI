@@ -1,4 +1,4 @@
-package sample.View_Controller;
+package InventoryManager.View_Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,12 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import sample.Model.*;
+import InventoryManager.Model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import static sample.View_Controller.MainScreenController.getIndexModifyPart;
+import static InventoryManager.View_Controller.MainScreenController.getIndexModifyPart;
 
 /*
     @AUTHOR
