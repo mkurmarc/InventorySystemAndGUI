@@ -8,8 +8,7 @@ import java.util.ResourceBundle;
 
 /*
     @AUTHOR
-    Marc Rios
-    ID: 787989
+    Marc 
 
  */
 
@@ -129,7 +128,6 @@ public class Inventory implements Initializable {
 }
 /*
     @AUTHOR
-    Marc Rios
-    ID: 787989
+    Marc 
 
  */
