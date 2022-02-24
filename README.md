@@ -8,4 +8,4 @@ each respective database.
 
 ### Technologies
 - Java 8
-- JavaFX, FXML
+- FXML
